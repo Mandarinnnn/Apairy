@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/hiveListFragment">
+
+    <fragment
+        android:id="@+id/hiveAddFragment"
+        android:name="com.example.apairy.fragments.HiveAddFragment"
+        android:label="fragment_hive_add"
+        tools:layout="@layout/fragment_hive_add" >
+        <action
+            android:id="@+id/action_hiveAddFragment_to_hiveListFragment"
+            app:destination="@id/hiveListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hiveListFragment"
+        android:name="com.example.apairy.fragments.HiveListFragment"
+        android:label="fragment_hive_list"
+        tools:layout="@layout/fragment_hive_list" >
+        <action
+            android:id="@+id/action_hiveListFragment_to_hiveAddFragment"
+            app:destination="@id/hiveAddFragment" />
+        <action
+            android:id="@+id/action_hiveListFragment_to_hiveEditFragment"
+            app:destination="@id/hiveEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hiveEditFragment"
+        android:name="com.example.apairy.fragments.HiveEditFragment"
+        android:label="fragment_hive_edit"
+        tools:layout="@layout/fragment_hive_edit" >
+        <action
+            android:id="@+id/action_hiveEditFragment_to_hiveListFragment"
+            app:destination="@id/hiveListFragment" />
+        <argument
+            android:name="hive"
+            app:argType="com.example.apairy.models.Hive"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/theoryFragment"
+        android:name="com.example.apairy.fragments.TheoryFragment"
+        android:label="TheoryFragment" >
+        <action
+            android:id="@+id/action_theoryFragment_to_theoryListFragment"
+            app:destination="@id/theoryListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/theoryListFragment"
+        android:name="com.example.apairy.fragments.TheoryListFragment"
+        android:label="fragment_theory_list"
+        tools:layout="@layout/fragment_theory_list" >
+        <action
+            android:id="@+id/action_theoryListFragment_to_theoryFragment"
+            app:destination="@id/theoryFragment" />
+        <action
+            android:id="@+id/action_theoryListFragment_to_theoryContentFragment"
+            app:destination="@id/theoryContentFragment" />
+        <argument
+            android:name="category"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/theoryContentFragment"
+        android:name="com.example.apairy.fragments.TheoryContentFragment"
+        android:label="fragment_theory_content"
+        tools:layout="@layout/fragment_theory_content" >
+        <action
+            android:id="@+id/action_theoryContentFragment_to_theoryListFragment"
+            app:destination="@id/theoryListFragment" />
+        <argument
+            android:name="category"
+            app:argType="integer" />
+        <argument
+            android:name="position"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/migrationListFragment"
+        android:name="com.example.apairy.fragments.MigrationListFragment"
+        android:label="fragment_migration_list"
+        tools:layout="@layout/fragment_migration_list" >
+        <action
+            android:id="@+id/action_migrationListFragment_to_migrationAddFragment"
+            app:destination="@id/migrationAddFragment" />
+        <action
+            android:id="@+id/action_migrationListFragment_to_migrationEditFragment"
+            app:destination="@id/migrationEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/migrationAddFragment"
+        android:name="com.example.apairy.fragments.MigrationAddFragment"
+        android:label="fragment_migration_add"
+        tools:layout="@layout/fragment_migration_add" >
+        <action
+            android:id="@+id/action_migrationAddFragment_to_migrationListFragment"
+            app:destination="@id/migrationListFragment" />
+        <action
+            android:id="@+id/action_migrationAddFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+        <argument
+            android:name="latitude"
+            app:argType="java.lang.Double"/>
+        <argument
+            android:name="longitude"
+            app:argType="java.lang.Double" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.example.apairy.fragments.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_mapsFragment_to_migrationAddFragment"
+            app:destination="@id/migrationAddFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/migrationEditFragment"
+        android:name="com.example.apairy.fragments.MigrationEditFragment"
+        android:label="fragment_migration_edit"
+        tools:layout="@layout/fragment_migration_edit" >
+        <action
+            android:id="@+id/action_migrationEditFragment_to_migrationListFragment"
+            app:destination="@id/migrationListFragment" />
+        <argument
+            android:name="migration"
+            app:argType="com.example.apairy.models.Migration"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_migrationEditFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
+</navigation>

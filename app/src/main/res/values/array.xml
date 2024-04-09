@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="titles_topic1">
+        <item>Пчелиная матка</item>
+        <item>Рабочие пчелы</item>
+        <item>Трутень</item>
+        <item>Жизненный цикл</item>
+        <item>Породы пчел</item>
+    </string-array>
+
+    <string-array name="titles_topic2">
+        <item>Разведение пчел</item>
+        <item>Инвентарь</item>
+        <item>Размещение ульев</item>
+        <item>Зимовка пчел</item>
+        <item>Омшаник</item>
+    </string-array>
+
+    <string-array name="titles_topic3">
+        <item>Осмотр пчел</item>
+        <item>Правила осмотра</item>
+        <item>Роение</item>
+        <item>Болезни пчел</item>
+        <item>Подкормка</item>
+    </string-array>
+
+    <array name="images_topic1">
+        <item>@drawable/c00</item>
+        <item>@drawable/c01</item>
+        <item>@drawable/c02</item>
+        <item>@drawable/c03</item>
+        <item>@drawable/c04</item>
+    </array>
+
+    <array name="images_topic2">
+        <item>@drawable/c10</item>
+        <item>@drawable/c11</item>
+        <item>@drawable/c12</item>
+        <item>@drawable/c13</item>
+        <item>@drawable/c14</item>
+    </array>
+
+    <array name="images_topic3">
+        <item>@drawable/c20</item>
+        <item>@drawable/c21</item>
+        <item>@drawable/c22</item>
+        <item>@drawable/c23</item>
+        <item>@drawable/c24</item>
+    </array>
+
+
+</resources>
