@@ -132,4 +132,42 @@
             android:id="@+id/action_migrationEditFragment_to_mapsFragment"
             app:destination="@id/mapsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/mistakeListFragment"
+        android:name="com.example.apairy.fragments.MistakeListFragment"
+        android:label="fragment_mistake_list"
+        tools:layout="@layout/fragment_mistake_list" >
+        <action
+            android:id="@+id/action_mistakeListFragment_to_mistakeAddFragment"
+            app:destination="@id/mistakeAddFragment" />
+        <action
+            android:id="@+id/action_mistakeListFragment_to_mistakeEditFragment"
+            app:destination="@id/mistakeEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mistakeAddFragment"
+        android:name="com.example.apairy.fragments.MistakeAddFragment"
+        android:label="MistakeAddFragment" >
+        <action
+            android:id="@+id/action_mistakeAddFragment_to_mistakeListFragment"
+            app:destination="@id/mistakeListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mistakeEditFragment"
+        android:name="com.example.apairy.fragments.MistakeEditFragment"
+        android:label="fragment_mistake_edit"
+        tools:layout="@layout/fragment_mistake_edit" >
+        <action
+            android:id="@+id/action_mistakeEditFragment_to_mistakeListFragment"
+            app:destination="@id/mistakeListFragment" />
+        <argument
+            android:name="mistake"
+            app:argType="com.example.apairy.models.Mistake"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/apiaryInfoFragment"
+        android:name="com.example.apairy.fragments.WeatherFragment"
+        android:label="fragment_apiary_info"
+        tools:layout="@layout/fragment_weather" />
 </navigation>

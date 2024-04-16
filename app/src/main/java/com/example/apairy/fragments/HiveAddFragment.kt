@@ -102,7 +102,7 @@ class HiveAddFragment : Fragment(), MenuProvider {
         if (title.isNotEmpty()){
             val formatter = SimpleDateFormat("EEE, d MMM yyyy HH:mm a")
             val hive = Hive(
-                null, title, frame, honey, strength, weight, note, formatter.format(Date()), queen, imageURI
+                0, title, frame, honey, strength, weight, note, formatter.format(Date()), queen, imageURI
             )
             hiveViewModel.insertHive(hive)
             Toast.makeText(addHiveView.context,"Улей добавлен", Toast.LENGTH_SHORT).show()

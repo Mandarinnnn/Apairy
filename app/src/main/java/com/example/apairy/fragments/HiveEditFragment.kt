@@ -10,6 +10,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -19,11 +20,15 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.apairy.MainActivity
 import com.example.apairy.R
+import com.example.apairy.adapter.HiveAdapter
+import com.example.apairy.adapter.HiveStateAdapter
 import com.example.apairy.databinding.FragmentHiveAddBinding
 import com.example.apairy.databinding.FragmentHiveEditBinding
 import com.example.apairy.models.Hive
+import com.example.apairy.models.HiveState
 import com.example.apairy.models.HiveViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -35,7 +40,7 @@ class HiveEditFragment : Fragment(), MenuProvider {
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var hiveViewModel: HiveViewModel
-
+    private lateinit var hiveStateAdapter: HiveStateAdapter
     private lateinit var currentHive: Hive
 
     private val args: HiveEditFragmentArgs by navArgs()
@@ -46,14 +51,14 @@ class HiveEditFragment : Fragment(), MenuProvider {
     private lateinit var saveMenuItem: MenuItem
     private lateinit var editHiveView: View
 
-    private val imgContract = registerForActivityResult(ActivityResultContracts.PickVisualMedia()){
-        binding.ivPickHive.setImageURI(it)
-        binding.ivPickHive.visibility = View.VISIBLE
-        binding.ivPickHive.tag = it.toString()
-        it?.let{
-            requireActivity().contentResolver.takePersistableUriPermission(it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        }
-    }
+//    private val imgContract = registerForActivityResult(ActivityResultContracts.PickVisualMedia()){
+//        binding.ivPickHive.setImageURI(it)
+//        binding.ivPickHive.visibility = View.VISIBLE
+//        binding.ivPickHive.tag = it.toString()
+//        it?.let{
+//            requireActivity().contentResolver.takePersistableUriPermission(it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+//        }
+//    }
 
 
 
@@ -79,22 +84,44 @@ class HiveEditFragment : Fragment(), MenuProvider {
 
 
         currentHive = args.hive!!
-        binding.etHiveNomer.setText(currentHive.name)
-        binding.etHiveZametki.setText(currentHive.note)
-        binding.enHiveMed.setText(currentHive.honey.toString())
-        binding.enHiveSila.setText(currentHive.strength.toString())
-        binding.enHiveRamki.setText(currentHive.frame.toString())
-        binding.enHiveVes.setText(currentHive.weight.toString())
+
+        binding.etHiveName.setText(currentHive.name)
+        binding.etHiveNote.setText(currentHive.note)
         binding.etHiveQueen.setText(currentHive.queen)
+        binding.enHiveFrame.setText(currentHive.frame.toString())
 
-        binding.ivPickHive.tag = currentHive.imageURI
-        binding.ivPickHive.setImageURI(Uri.parse(currentHive.imageURI))
-        binding.ivPickHive.visibility = View.VISIBLE
 
-        binding.btnPickHive.setOnClickListener{
-            menuSaved = true
-            imgContract.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+
+//        binding.ivPickHive.tag = currentHive.imageURI
+//        binding.ivPickHive.setImageURI(Uri.parse(currentHive.imageURI))
+//        binding.ivPickHive.visibility = View.VISIBLE
+
+//        binding.btnPickHive.setOnClickListener{
+//            menuSaved = true
+//            imgContract.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+//        }
+
+
+
+        binding.rvHiveStateList.setHasFixedSize(true)
+        binding.rvHiveStateList.layoutManager = StaggeredGridLayoutManager(1, LinearLayout.HORIZONTAL)
+        hiveStateAdapter = HiveStateAdapter()
+        binding.rvHiveStateList.adapter = hiveStateAdapter
+
+
+        hiveViewModel.getStatesForHive(currentHive.id).observe(viewLifecycleOwner,){ list ->
+            list?.let{
+                hiveStateAdapter.updateHiveStateList(list)
+            }
         }
+
+
+
+        binding.btnSaveHiveState.setOnClickListener{
+            saveHiveState()
+        }
+
+
     }
 
 
@@ -114,21 +141,15 @@ class HiveEditFragment : Fragment(), MenuProvider {
     }
 
     private fun updateHiveInDB(view: View){
-        val title = binding.etHiveNomer.text.toString()
-        val note = binding.etHiveZametki.text.toString()
-
-        val frame = binding.enHiveRamki.text.toString().toInt()
-        val honey = binding.enHiveMed.text.toString().toInt()
-        val strength = binding.enHiveSila.text.toString().toInt()
-        val weight = binding.enHiveVes.text.toString().toInt()
-
+        val title = binding.etHiveName.text.toString()
+        val note = binding.etHiveNote.text.toString()
         val queen = binding.etHiveQueen.text.toString()
-        val imageURI = binding.ivPickHive.getTag().toString()
+        val frame = binding.enHiveFrame.text.toString().toInt()
 
         if (title.isNotEmpty()){
-            val formatter = SimpleDateFormat("EEE, d MMM yyyy HH:mm a")
+            val formatter = SimpleDateFormat("dd.MM.yyyy HH:mm")
             val hive = Hive(
-                currentHive.id, title, frame, honey, strength, weight, note, formatter.format(Date()), queen, imageURI
+                currentHive.id, title, frame, null, null, null, note, formatter.format(Date()), queen,null
             )
             hiveViewModel.updateHive(hive)
             Toast.makeText(editHiveView.context,"Улей изменен", Toast.LENGTH_SHORT).show()
@@ -138,29 +159,21 @@ class HiveEditFragment : Fragment(), MenuProvider {
         }
     }
 
-    private fun makeEnable(){
-        binding.btnPickHive.isEnabled = true
-        binding.etHiveNomer.isEnabled = true
-        binding.etHiveZametki.isEnabled = true
-        binding.enHiveMed.isEnabled = true
-        binding.enHiveSila.isEnabled = true
-        binding.enHiveRamki.isEnabled = true
-        binding.enHiveVes.isEnabled = true
-        binding.etHiveQueen.isEnabled = true
+    private fun saveHiveState(){
+        val strength = binding.etHiveStateStrength.text.toString().toIntOrNull()
+        val honey = binding.etHiveStateHoney.text.toString().toFloatOrNull()
+        val framesWithBrood = binding.etHiveStateFrameWithBrood.text.toString().toIntOrNull()
+
+        if(strength != null && honey != null && framesWithBrood != null){
+            val formatter = SimpleDateFormat("dd.MM.yyyy")
+            val hiveState = HiveState(
+                0, currentHive.id, strength,framesWithBrood,honey,formatter.format(Date())
+            )
+            hiveViewModel.insertHiveState(hiveState)
+        }else{
+            Toast.makeText(requireContext(),"Пожалуйста, введите данные", Toast.LENGTH_SHORT).show()
+        }
     }
-
-    private fun makeDisable(){
-        binding.btnPickHive.isEnabled = false
-        binding.etHiveNomer.isEnabled = false
-        binding.etHiveZametki.isEnabled = false
-        binding.enHiveMed.isEnabled = false
-        binding.enHiveSila.isEnabled = false
-        binding.enHiveRamki.isEnabled = false
-        binding.enHiveVes.isEnabled = false
-        binding.etHiveQueen.isEnabled = false
-    }
-
-
 
 
 
@@ -180,20 +193,11 @@ class HiveEditFragment : Fragment(), MenuProvider {
                 saveMenuItem.isVisible = false
                 // Сделать элемент "Сохранить" видимым
                 editMenuItem.isVisible = true
-                makeDisable()
                 true
             }
             else -> false
         }
     }
-
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-    }
-
-
-
 
 
     override fun onResume() {

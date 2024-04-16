@@ -10,7 +10,7 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "hives_table")
 @Parcelize
 data class Hive(
-    @PrimaryKey(autoGenerate = true) val id: Int?,
+    @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(name = "name") val name: String?,
     @ColumnInfo(name = "frame") val frame: Int?,
     @ColumnInfo(name = "honey") val honey: Int?,
@@ -21,3 +21,6 @@ data class Hive(
     @ColumnInfo(name = "queen") val queen: String?,
     @ColumnInfo(name = "imageURI") val imageURI: String?,
 ) : Parcelable
+
+
+

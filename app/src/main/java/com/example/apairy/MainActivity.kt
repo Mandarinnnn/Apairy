@@ -47,7 +47,8 @@ class MainActivity : AppCompatActivity() {
             .Builder(
                 R.id.hiveListFragment,
                 R.id.migrationListFragment,
-                R.id.theoryFragment)
+                R.id.theoryFragment,
+                R.id.mistakeListFragment)
             .build()
         setupActionBarWithNavController(navController, appBarConfiguration)
 
@@ -69,8 +70,13 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_smth1 -> {
-                    navController.navigate(R.id.mapsFragment)
+                    navController.navigate(R.id.mistakeListFragment)
                     supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                    true
+                }
+
+                R.id.nav_smth2 -> {
+                    navController.navigate(R.id.apiaryInfoFragment)
                     true
                 }
 

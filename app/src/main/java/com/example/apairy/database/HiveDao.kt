@@ -8,6 +8,8 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.apairy.models.Hive
+import com.example.apairy.models.HiveState
+import com.example.apairy.models.relations.HiveWithStates
 
 
 @Dao
@@ -26,8 +28,21 @@ interface HiveDao {
     @Query("SELECT * FROM hives_table ORDER BY id ASC")
     fun getAllHives(): LiveData<List<Hive>>
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertHiveState(hiveState: HiveState)
 
-    @Query("UPDATE hives_table Set name = :name, frame = :frame, honey = :honey, strength = :strength, weight = :weight, note = :note WHERE id = :id")
-    suspend fun update(id: Int?, name: String?, frame: Int?,honey: Int?,
-                       strength: Int?,weight: Int?,note: String?,)
+    @Delete
+    suspend fun deleteHiveState(hiveState: HiveState)
+
+
+    @Query("SELECT * FROM hives_table WHERE id = :hiveId")
+    fun getHiveWithStates(hiveId: Int): LiveData<HiveWithStates>
+
+
+    @Query("SELECT * FROM hive_states_table WHERE hiveId = :hiveId ORDER BY id DESC")
+    fun getStatesForHive(hiveId: Int): LiveData<List<HiveState>>
+
+//    @Query("UPDATE hives_table Set name = :name, frame = :frame, honey = :honey, strength = :strength, weight = :weight, note = :note WHERE id = :id")
+//    suspend fun update(id: Int?, name: String?, frame: Int?,honey: Int?,
+//                       strength: Int?,weight: Int?,note: String?,)
 }

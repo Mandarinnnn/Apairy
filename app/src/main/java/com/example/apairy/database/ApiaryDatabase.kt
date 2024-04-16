@@ -5,14 +5,17 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.apairy.models.Hive
+import com.example.apairy.models.HiveState
 import com.example.apairy.models.Migration
+import com.example.apairy.models.Mistake
 
 
-@Database(entities = [Hive::class, Migration::class], version = 1, exportSchema = false)
+@Database(entities = [Hive::class, HiveState::class, Migration::class, Mistake::class], version = 1, exportSchema = false)
 abstract class ApiaryDatabase: RoomDatabase() {
 
     abstract fun hiveDao() : HiveDao
     abstract fun migrationDao() : MigrationDao
+    abstract fun mistakeDao() : MistakeDao
 
     companion object{
         @Volatile

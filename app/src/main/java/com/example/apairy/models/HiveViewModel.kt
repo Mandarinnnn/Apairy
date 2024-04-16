@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.apairy.database.ApiaryDatabase
 import com.example.apairy.database.HiveRepository
+import com.example.apairy.models.relations.HiveWithStates
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -35,5 +36,21 @@ class HiveViewModel(application: Application): AndroidViewModel(application) {
         viewModelScope.launch(Dispatchers.IO){
             repository.delete(hive)
         }
+    }
+
+    fun insertHiveState(hiveState: HiveState){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.insert(hiveState)
+        }
+    }
+
+    fun deleteHiveState(hiveState: HiveState){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.delete(hiveState)
+        }
+    }
+
+    fun getStatesForHive(hiveId: Int): LiveData<List<HiveState>> {
+        return repository.getStatesForHive(hiveId)
     }
 }
