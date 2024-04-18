@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_smth1 -> {
-                    navController.navigate(R.id.mistakeListFragment)
+                    navController.navigate(R.id.weatherFragment)
                     supportActionBar?.setDisplayHomeAsUpEnabled(false)
                     true
                 }

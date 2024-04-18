@@ -3,6 +3,8 @@ package com.example.apairy.database
 import androidx.lifecycle.LiveData
 import com.example.apairy.models.Hive
 import com.example.apairy.models.HiveState
+import com.example.apairy.models.HoneyAmountCounts
+import com.example.apairy.models.StrengthCounts
 import com.example.apairy.models.relations.HiveWithStates
 
 class HiveRepository (private val hiveDao: HiveDao){
@@ -37,4 +39,11 @@ class HiveRepository (private val hiveDao: HiveDao){
         return hiveDao.getStatesForHive(hiveId)
     }
 
+    suspend fun getTotalStrengthCounts(): StrengthCounts{
+        return hiveDao.getTotalStrengthCounts()
+    }
+
+    suspend fun getTotalHoneyAmount(): HoneyAmountCounts{
+        return hiveDao.getTotalHoneyAmount()
+    }
 }

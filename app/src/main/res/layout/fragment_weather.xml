@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
     tools:context=".fragments.WeatherFragment">
@@ -98,10 +99,19 @@
 
     </androidx.cardview.widget.CardView>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_hourly"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/hourly_list_item"
+        tools:itemCount="2"
+        />
 
-
-
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_future_weather"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/future_weather_list_item"/>
 
 
 </LinearLayout>

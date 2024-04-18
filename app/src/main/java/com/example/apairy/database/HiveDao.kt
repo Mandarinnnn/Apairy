@@ -9,6 +9,8 @@ import androidx.room.Query
 import androidx.room.Update
 import com.example.apairy.models.Hive
 import com.example.apairy.models.HiveState
+import com.example.apairy.models.HoneyAmountCounts
+import com.example.apairy.models.StrengthCounts
 import com.example.apairy.models.relations.HiveWithStates
 
 
@@ -41,6 +43,28 @@ interface HiveDao {
 
     @Query("SELECT * FROM hive_states_table WHERE hiveId = :hiveId ORDER BY id DESC")
     fun getStatesForHive(hiveId: Int): LiveData<List<HiveState>>
+
+
+
+
+    @Query("SELECT SUM(CASE WHEN strength >= 9 THEN 1 ELSE 0 END) AS strongCount, " +
+            "       SUM(CASE WHEN strength BETWEEN 4 AND 8 THEN 1 ELSE 0 END) AS mediumCount, " +
+            "       SUM(CASE WHEN strength BETWEEN 0 AND 3 THEN 1 ELSE 0 END) AS weakCount " +
+            "FROM (" +
+            "SELECT strength FROM hive_states_table WHERE id IN (SELECT MAX(id) FROM hive_states_table GROUP BY hiveId)"+
+        ") AS latest_states")
+    suspend fun getTotalStrengthCounts(): StrengthCounts
+
+
+    @Query("SELECT SUM(CASE WHEN honey > 9 THEN 1 ELSE 0 END) AS honeyFrom9ToMore, " +
+            "       SUM(CASE WHEN honey > 7.0 AND honey <= 9.0 THEN 1 ELSE 0 END) AS honeyFrom7To9, " +
+            "       SUM(CASE WHEN honey > 5.0 AND honey <= 7.0 THEN 1 ELSE 0 END) AS honeyFrom5To7, " +
+            "       SUM(CASE WHEN honey > 3.0 AND honey <= 5.0 THEN 1 ELSE 0 END) AS honeyFrom3To5, " +
+            "       SUM(CASE WHEN honey >= 1.0 AND honey <= 3.0 THEN 1 ELSE 0 END) AS honeyFrom1To3 " +
+            "FROM (" +
+            "SELECT honey FROM hive_states_table WHERE id IN (SELECT MAX(id) FROM hive_states_table GROUP BY hiveId)"+
+            ") AS latest_states")
+    suspend fun getTotalHoneyAmount(): HoneyAmountCounts
 
 //    @Query("UPDATE hives_table Set name = :name, frame = :frame, honey = :honey, strength = :strength, weight = :weight, note = :note WHERE id = :id")
 //    suspend fun update(id: Int?, name: String?, frame: Int?,honey: Int?,
