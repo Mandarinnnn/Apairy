@@ -15,4 +15,6 @@ data class Mistake(
     @ColumnInfo(name = "name") val name: String?,
     @ColumnInfo(name = "solution") val solution: String?,
     @ColumnInfo(name = "year") val year: String?,
+    @ColumnInfo(name = "isSynced") val isSynced: Boolean?,
+    @ColumnInfo(name = "isLocallyDeleted") val isLocallyDeleted: Boolean?,
 ): Parcelable

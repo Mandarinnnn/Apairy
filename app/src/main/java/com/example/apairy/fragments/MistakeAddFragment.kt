@@ -81,7 +81,7 @@ class MistakeAddFragment : Fragment(), MenuProvider {
 
 
         val mistake = Mistake(
-            null, title, solution, year
+            null, title, solution, year,false,false
         )
         mistakeViewModel.insertMistake(mistake)
         Toast.makeText(addMistakeView.context,"Информация добавлена", Toast.LENGTH_SHORT).show()

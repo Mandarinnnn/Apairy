@@ -5,5 +5,6 @@ data class CurrentWeather(
     val temperature: Float,
     val windSpeed: Float,
     val humidity: Int,
-    val pressure: Float
+    val pressure: Float,
+    val weather: String,
 )

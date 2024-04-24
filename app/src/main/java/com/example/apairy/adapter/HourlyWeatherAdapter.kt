@@ -3,12 +3,14 @@ package com.example.apairy.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apairy.R
 import com.example.apairy.models.CurrentWeatherHourly
 import com.example.apairy.models.HiveState
+import com.squareup.picasso.Picasso
 
 class HourlyWeatherAdapter: RecyclerView.Adapter<HourlyWeatherAdapter.HourlyWeatherViewHolder>() {
     private val HourlyWeatherList = ArrayList<CurrentWeatherHourly>()
@@ -17,7 +19,7 @@ class HourlyWeatherAdapter: RecyclerView.Adapter<HourlyWeatherAdapter.HourlyWeat
 
     class HourlyWeatherViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val time = itemView.findViewById<TextView>(R.id.tv_time)
-        //val weather = itemView.findViewById<TextView>(R.id.iv_weather)
+        val ivWeather = itemView.findViewById<ImageView>(R.id.iv_weather)
         val temperature = itemView.findViewById<TextView>(R.id.tv_temperature)
     }
 
@@ -34,6 +36,7 @@ class HourlyWeatherAdapter: RecyclerView.Adapter<HourlyWeatherAdapter.HourlyWeat
         val currentWeather = HourlyWeatherList[position]
         holder.time.text = currentWeather.time.substring(11)
        // holder.weather. =
+        Picasso.get().load("https:" + currentWeather.weather).into(holder.ivWeather)
         holder.temperature.text = currentWeather.temperature.toString()
     }
 

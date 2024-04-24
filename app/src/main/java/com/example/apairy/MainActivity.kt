@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_smth2 -> {
-                    navController.navigate(R.id.apiaryInfoFragment)
+                    navController.navigate(R.id.mistakeListFragment)
                     true
                 }
 

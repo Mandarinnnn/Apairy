@@ -71,9 +71,10 @@ class WeatherViewModel(application: Application): AndroidViewModel(application){
         val windSpeed = current.getString("wind_kph").toFloat()
         val humidity = current.getString("humidity").toInt()
         val pressure = current.getString("pressure_mb").toFloat()
+        val weather = current.getJSONObject("condition").getString("icon")
 
         val currentWeather = CurrentWeather(
-            name, temperature, windSpeed, humidity, pressure
+            name, temperature, windSpeed, humidity, pressure, weather
         )
 
         _currentWeather.value = currentWeather
@@ -87,7 +88,7 @@ class WeatherViewModel(application: Application): AndroidViewModel(application){
 
             val forHour = weatherHourly[i] as JSONObject
             val temperature = forHour.getString("temp_c").toFloat()
-            val weather = forHour.getJSONObject("condition").getString("text")
+            val weather = forHour.getJSONObject("condition").getString("icon")
             val time = forHour.getString("time")
 
             val currentWeatherForHour = CurrentWeatherHourly(
@@ -121,7 +122,7 @@ class WeatherViewModel(application: Application): AndroidViewModel(application){
             for (i in indices) {
                 val forHour = forDayHourly[i] as JSONObject
                 val temperature = forHour.getString("temp_c").toFloat()
-                val weather = forHour.getJSONObject("condition").getString("text")
+                val weather = forHour.getJSONObject("condition").getString("icon")
 
 
                 when(i){

@@ -26,6 +26,7 @@ import com.example.apairy.models.CurrentWeather
 import com.example.apairy.models.CurrentWeatherHourly
 import com.example.apairy.models.FutureWeather
 import com.example.apairy.models.WeatherViewModel
+import com.squareup.picasso.Picasso
 import org.json.JSONArray
 import org.json.JSONObject
 import java.text.SimpleDateFormat
@@ -78,6 +79,17 @@ class WeatherFragment : Fragment() {
             list?.let{
                 futureWeatherAdapter.updateFutureWeatherList(list)
             }
+        }
+
+
+        viewModel.currentWeather.observe(viewLifecycleOwner,){ currentWeather ->
+            binding.tvName.text = "${currentWeather.name} °C"
+            binding.tvTemp.text = "${currentWeather.temperature} °C"
+            binding.tvWind.text = "${currentWeather.windSpeed} m/s"
+            binding.tvHumidity.text = "${currentWeather.humidity} %"
+            binding.tvPressure.text = "${currentWeather.pressure} hPa"
+
+            Picasso.get().load("https:" + currentWeather.weather).into(binding.ivCurrentWeather)
         }
 
 

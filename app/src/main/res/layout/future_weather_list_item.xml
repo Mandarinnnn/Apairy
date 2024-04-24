@@ -30,7 +30,7 @@
         <ImageView
             android:id="@+id/iv_morning"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:src="@drawable/ic_sunny" />
 
@@ -60,7 +60,7 @@
         <ImageView
             android:id="@+id/iv_day"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:src="@drawable/ic_sunny" />
 
@@ -90,7 +90,7 @@
         <ImageView
             android:id="@+id/iv_evening"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:src="@drawable/ic_sunny" />
 
@@ -118,9 +118,9 @@
             android:textSize="20dp"/>
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/iv_night"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:src="@drawable/ic_sunny" />
 
