@@ -12,20 +12,25 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.apairy.R
 import com.example.apairy.databinding.FragmentMistakeAddBinding
+import com.example.apairy.models.MigrationViewModel
 import com.example.apairy.models.Mistake
 import com.example.apairy.models.MistakeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MistakeAddFragment : Fragment(), MenuProvider {
     private var _binding: FragmentMistakeAddBinding? = null
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    private lateinit var mistakeViewModel: MistakeViewModel
+
+    private val mistakeViewModel: MistakeViewModel by activityViewModels()
     private lateinit var addMistakeView: View
 
 
@@ -59,7 +64,7 @@ class MistakeAddFragment : Fragment(), MenuProvider {
         }
 
 
-        mistakeViewModel = ViewModelProvider(this).get(MistakeViewModel::class.java)
+       // mistakeViewModel = ViewModelProvider(this).get(MistakeViewModel::class.java)
         addMistakeView = view
 
 
@@ -81,9 +86,9 @@ class MistakeAddFragment : Fragment(), MenuProvider {
 
 
         val mistake = Mistake(
-            null, title, solution, year,false,false
+            title, solution!!, year,true,false,false
         )
-        mistakeViewModel.insertMistake(mistake)
+        mistakeViewModel.createMistake(mistake)
         Toast.makeText(addMistakeView.context,"Информация добавлена", Toast.LENGTH_SHORT).show()
         view.findNavController().popBackStack()
 

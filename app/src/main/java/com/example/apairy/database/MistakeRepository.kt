@@ -2,8 +2,9 @@ package com.example.apairy.database
 
 import androidx.lifecycle.LiveData
 import com.example.apairy.models.Mistake
+import javax.inject.Inject
 
-class MistakeRepository(private val mistakeDao: MistakeDao) {
+class MistakeRepository @Inject constructor(private val mistakeDao: MistakeDao) {
 
 
     val getAllMistakes: LiveData<List<Mistake>> = mistakeDao.getAllMistakes()

@@ -1,6 +1,8 @@
 package com.example.apairy.fragments
 
 import android.app.DatePickerDialog
+import android.content.ContentResolver
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,8 +15,11 @@ import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -27,18 +32,24 @@ import com.example.apairy.models.Hive
 import com.example.apairy.models.LocationViewModel
 import com.example.apairy.models.Migration
 import com.example.apairy.models.MigrationViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
+import java.io.FileNotFoundException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 
 
+@AndroidEntryPoint
 class MigrationEditFragment : Fragment(),MenuProvider {
     private var _binding: FragmentMigrationEditBinding? = null
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private lateinit var migrationViewModel: MigrationViewModel
+    private val migrationViewModel: MigrationViewModel by activityViewModels()
+
+
     private lateinit var locationViewModel: LocationViewModel
 
     private lateinit var currentMigration: Migration
@@ -51,6 +62,16 @@ class MigrationEditFragment : Fragment(),MenuProvider {
 
     private lateinit var editMenuItem: MenuItem
     private lateinit var saveMenuItem: MenuItem
+
+
+    private val imgContract = registerForActivityResult(ActivityResultContracts.PickVisualMedia()){
+        it?.let{
+            binding.ivMigration.setImageURI(it)
+            binding.ivMigration.visibility = View.VISIBLE
+            binding.ivMigration.tag = it.toString()
+            requireActivity().contentResolver.takePersistableUriPermission(it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+    }
 
 
     override fun onCreateView(
@@ -69,18 +90,30 @@ class MigrationEditFragment : Fragment(),MenuProvider {
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this,viewLifecycleOwner, Lifecycle.State.RESUMED)
 
-        migrationViewModel = ViewModelProvider(this).get(MigrationViewModel::class.java)
+        //migrationViewModel = ViewModelProvider(this).get(MigrationViewModel::class.java)
 
         editMigrationView = view
 
         currentMigration = args.migration!!
         binding.etMigrationName.setText(currentMigration.name)
         binding.etMigrationNote.setText(currentMigration.note)
-        binding.etMigrationHoneyPlant.setText(currentMigration.honeyPlant)
+        binding.etMigrationHoneyPlant.setText(currentMigration.hiveCount.toString())
         binding.etMigrationStartDate.setText(currentMigration.startDate)
         binding.etMigrationEndDate.setText(currentMigration.endDate)
         binding.enMigrationLongitude.setText(currentMigration.longitude?.toString() ?: "")
         binding.enMigrationLatitude.setText(currentMigration.latitude?.toString() ?: "")
+
+
+
+        binding.ivMigration.tag = currentMigration.imageURI
+
+        if (currentMigration.imageURI != null){
+            if(isImageFileExists(requireContext().contentResolver, Uri.parse(currentMigration.imageURI))){
+                binding.ivMigration.setImageURI(Uri.parse(currentMigration.imageURI))
+                binding.ivMigration.visibility = View.VISIBLE
+            }
+        }
+
 
 
         locationViewModel = ViewModelProvider(requireActivity()).get(LocationViewModel::class.java)
@@ -118,7 +151,7 @@ class MigrationEditFragment : Fragment(),MenuProvider {
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menu.clear()
-        menuInflater.inflate(R.menu.edit_menu, menu)
+        menuInflater.inflate(R.menu.edit_migration_menu, menu)
 
         (activity as? MainActivity)?.allocateTitle("")
     }
@@ -126,20 +159,26 @@ class MigrationEditFragment : Fragment(),MenuProvider {
 
     private fun updateMigrationInDB(view: View){
         val title = binding.etMigrationName.text.toString()
-        val honeyPlant = binding.etMigrationHoneyPlant.text.toString()
 
+        if (title.isEmpty() || binding.etMigrationHoneyPlant.text.toString().isEmpty()
+            || binding.etMigrationStartDate.text.toString().isEmpty()) {
+            Toast.makeText(editMigrationView.context,"Пожалуйста, введите данные", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+
+        val hiveCount = binding.etMigrationHoneyPlant.text.toString().toInt()
         val startDate = binding.etMigrationStartDate.text.toString()
-        val endDate = binding.etMigrationEndDate.text.toString()
-
-
-        val latitude = binding.enMigrationLatitude.text.toString().toDouble()
-        val longitude = binding.enMigrationLongitude.text.toString().toDouble()
-
-        val note = binding.etMigrationNote.text.toString()
+        val endDate = binding.etMigrationEndDate.text.toString().takeIf { it.isNotEmpty() }
+        val latitude = binding.enMigrationLatitude.text.toString().toDoubleOrNull()
+        val longitude = binding.enMigrationLongitude.text.toString().toDoubleOrNull()
+        val note = binding.etMigrationNote.text.toString().takeIf { it.isNotEmpty() }
+        val imageURI = binding.ivMigration.getTag().toString()
 
         if (title.isNotEmpty()){
             val migration = Migration(
-                currentMigration.id, title, honeyPlant, startDate, endDate, latitude, longitude,  note
+               title, hiveCount, startDate, endDate, latitude, longitude,  note, imageURI,
+                false, true, false
             )
             migrationViewModel.updateMigration(migration)
             Toast.makeText(editMigrationView.context,"Кочевка изменена", Toast.LENGTH_SHORT).show()
@@ -163,13 +202,17 @@ class MigrationEditFragment : Fragment(),MenuProvider {
                 findNavController().popBackStack()
                 true
             }
-            R.id.action_save -> {
+            R.id.action_save_migrr -> {
                 updateMigrationInDB(editMigrationView)
                 true
             }
 
-            R.id.action_delete -> {
+            R.id.action_delete_migrr -> {
                 deleteMigration()
+                true
+            }
+            R.id.action_photo_migrr-> {
+                imgContract.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
                 true
             }
             else -> false
@@ -205,6 +248,19 @@ class MigrationEditFragment : Fragment(),MenuProvider {
     override fun onPause() {
         super.onPause()
         (activity as? MainActivity)?.showBottomNavigationView()
+    }
+
+
+
+    fun isImageFileExists(contentResolver: ContentResolver, imageUri: Uri): Boolean {
+        return try {
+            requireActivity().contentResolver.takePersistableUriPermission(imageUri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            val inputStream = contentResolver.openInputStream(imageUri)
+            inputStream?.close()
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
 
 }

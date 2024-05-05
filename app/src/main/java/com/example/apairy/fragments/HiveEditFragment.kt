@@ -16,6 +16,7 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -30,16 +31,22 @@ import com.example.apairy.databinding.FragmentHiveEditBinding
 import com.example.apairy.models.Hive
 import com.example.apairy.models.HiveState
 import com.example.apairy.models.HiveViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Date
 
+@AndroidEntryPoint
 class HiveEditFragment : Fragment(), MenuProvider {
 
     private var _binding: FragmentHiveEditBinding? = null
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    private lateinit var hiveViewModel: HiveViewModel
+
+
+    private val hiveViewModel: HiveViewModel by activityViewModels()
+
+
     private lateinit var hiveStateAdapter: HiveStateAdapter
     private lateinit var currentHive: Hive
 
@@ -79,7 +86,7 @@ class HiveEditFragment : Fragment(), MenuProvider {
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this,viewLifecycleOwner, Lifecycle.State.RESUMED)
 
-        hiveViewModel = ViewModelProvider(this).get(HiveViewModel::class.java)
+       // hiveViewModel = ViewModelProvider(this).get(HiveViewModel::class.java)
         editHiveView = view
 
 
@@ -87,8 +94,8 @@ class HiveEditFragment : Fragment(), MenuProvider {
 
         binding.etHiveName.setText(currentHive.name)
         binding.etHiveNote.setText(currentHive.note)
-        binding.etHiveQueen.setText(currentHive.queen)
-        binding.enHiveFrame.setText(currentHive.frame.toString())
+        binding.etHiveQueen.setText(currentHive.queenYear)
+        binding.enHiveFrame.setText(currentHive.frameCount.toString())
 
 
 
@@ -144,12 +151,11 @@ class HiveEditFragment : Fragment(), MenuProvider {
         val title = binding.etHiveName.text.toString()
         val note = binding.etHiveNote.text.toString()
         val queen = binding.etHiveQueen.text.toString()
-        val frame = binding.enHiveFrame.text.toString().toInt()
+        val frame = binding.enHiveFrame.text.toString()
 
-        if (title.isNotEmpty()){
-            val formatter = SimpleDateFormat("dd.MM.yyyy HH:mm")
+        if (title.isNotEmpty() || note.isNotEmpty() || frame.isNotEmpty() || queen.isNotEmpty()){
             val hive = Hive(
-                currentHive.id, title, frame, null, null, null, note, formatter.format(Date()), queen,null
+                title, frame.toInt(), queen, note, false, currentHive.isLocallyNew, false, currentHive.isLocallyDeleted
             )
             hiveViewModel.updateHive(hive)
             Toast.makeText(editHiveView.context,"Улей изменен", Toast.LENGTH_SHORT).show()
@@ -159,15 +165,17 @@ class HiveEditFragment : Fragment(), MenuProvider {
         }
     }
 
+
     private fun saveHiveState(){
         val strength = binding.etHiveStateStrength.text.toString().toIntOrNull()
         val honey = binding.etHiveStateHoney.text.toString().toFloatOrNull()
         val framesWithBrood = binding.etHiveStateFrameWithBrood.text.toString().toIntOrNull()
 
         if(strength != null && honey != null && framesWithBrood != null){
-            val formatter = SimpleDateFormat("dd.MM.yyyy")
+            val formatter = SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSSS")
             val hiveState = HiveState(
-                0, currentHive.id, strength,framesWithBrood,honey,formatter.format(Date())
+                currentHive.id, strength,framesWithBrood,honey,formatter.format(Date()),
+                true, false
             )
             hiveViewModel.insertHiveState(hiveState)
         }else{
@@ -195,10 +203,19 @@ class HiveEditFragment : Fragment(), MenuProvider {
                 editMenuItem.isVisible = true
                 true
             }
+            R.id.action_delete -> {
+                deleteHive()
+                true
+            }
             else -> false
         }
     }
 
+
+    private fun deleteHive(){
+        hiveViewModel.deleteHive(currentHive)
+        editHiveView.findNavController().popBackStack()
+    }
 
     override fun onResume() {
         super.onResume()

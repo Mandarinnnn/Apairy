@@ -25,9 +25,12 @@ import com.example.apairy.databinding.FragmentMigrationListBinding
 import com.example.apairy.models.HiveViewModel
 import com.example.apairy.models.MigrationViewModel
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.activityViewModels
 import com.example.apairy.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class MigrationListFragment : Fragment(),MenuProvider, SearchView.OnQueryTextListener {
 
     private var _binding: FragmentMigrationListBinding? = null
@@ -35,7 +38,10 @@ class MigrationListFragment : Fragment(),MenuProvider, SearchView.OnQueryTextLis
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private lateinit var migrationViewModel: MigrationViewModel
+    private val migrationViewModel: MigrationViewModel by activityViewModels()
+
+
+
     private lateinit var adapter: MigrationAdapter
 
     override fun onCreateView(
@@ -60,7 +66,7 @@ class MigrationListFragment : Fragment(),MenuProvider, SearchView.OnQueryTextLis
         adapter = MigrationAdapter()
         binding.rvMigrationList.adapter = adapter
 
-        migrationViewModel = ViewModelProvider(this).get(MigrationViewModel::class.java)
+        //migrationViewModel = ViewModelProvider(this).get(MigrationViewModel::class.java)
 
         migrationViewModel.getAllMigrations.observe(viewLifecycleOwner,){ list ->
             list?.let{

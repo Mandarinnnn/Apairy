@@ -3,8 +3,9 @@ package com.example.apairy.database
 import androidx.lifecycle.LiveData
 import com.example.apairy.models.Hive
 import com.example.apairy.models.Migration
+import javax.inject.Inject
 
-class MigrationRepository(private val migrationDao: MigrationDao) {
+class MigrationRepository @Inject constructor(private val migrationDao: MigrationDao) {
 
 
     val getAllMigrations: LiveData<List<Migration>> = migrationDao.getAllMigrations()

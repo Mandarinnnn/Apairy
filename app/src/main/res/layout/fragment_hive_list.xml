@@ -27,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/svSearch"
-        tools:listitem="@layout/hive_list_item"
+        tools:listitem="@layout/y"
         tools:itemCount="20"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

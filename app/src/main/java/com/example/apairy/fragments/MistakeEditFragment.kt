@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -26,7 +27,9 @@ import com.example.apairy.models.Migration
 import com.example.apairy.models.MigrationViewModel
 import com.example.apairy.models.Mistake
 import com.example.apairy.models.MistakeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MistakeEditFragment : Fragment(),MenuProvider {
 
     private var _binding: FragmentMistakeEditBinding? = null
@@ -34,7 +37,10 @@ class MistakeEditFragment : Fragment(),MenuProvider {
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var currentMistake: Mistake
-    private lateinit var mistakeViewModel: MistakeViewModel
+
+
+
+    private val mistakeViewModel: MistakeViewModel by activityViewModels()
     private lateinit var editMistakeView: View
     private val args: MistakeEditFragmentArgs by navArgs()
 
@@ -70,7 +76,7 @@ class MistakeEditFragment : Fragment(),MenuProvider {
         }
 
 
-        mistakeViewModel = ViewModelProvider(this).get(MistakeViewModel::class.java)
+        //mistakeViewModel = ViewModelProvider(this).get(MistakeViewModel::class.java)
 
         editMistakeView = view
 
@@ -100,7 +106,7 @@ class MistakeEditFragment : Fragment(),MenuProvider {
 
 
         val mistake = Mistake(
-            currentMistake.id, title, solution, year, false, false
+            title, solution!!, year, false, true, false
         )
         mistakeViewModel.updateMistake(mistake)
         Toast.makeText(editMistakeView.context,"Информация добавлена", Toast.LENGTH_SHORT).show()

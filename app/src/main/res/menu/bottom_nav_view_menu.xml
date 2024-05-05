@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/nav_hives"
-        android:icon="@drawable/baseline_honeycomb"
+        android:icon="@drawable/hive_bottom"
         android:title="Улья"/>
 
     <item android:id="@+id/nav_statistics"

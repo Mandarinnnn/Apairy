@@ -3,38 +3,61 @@ package com.example.apairy.models
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.apairy.database.ApiaryDatabase
 import com.example.apairy.database.MigrationRepository
 import com.example.apairy.database.MistakeRepository
+import com.example.apairy.repository.MistakeeRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MistakeViewModel(application: Application): AndroidViewModel(application) {
-    private val repository: MistakeRepository
-    val getAllMistakes: LiveData<List<Mistake>>
+@HiltViewModel
+class MistakeViewModel @Inject constructor(val repository: MistakeeRepository): ViewModel() {
+    //private val repository: MistakeRepository
+    val getAllMistakes: LiveData<List<Mistake>> = repository.getAllMistakes
 
-    init{
-        val mistakeDao = ApiaryDatabase.getDatabase(application).mistakeDao()
-        repository = MistakeRepository(mistakeDao)
-        getAllMistakes = repository.getAllMistakes
-    }
+//    init{
+//        val mistakeDao = ApiaryDatabase.getDatabase(application).mistakeDao()
+//        repository = MistakeRepository(mistakeDao)
+//        getAllMistakes = repository.getAllMistakes
+//    }
 
-    fun insertMistake(mistake: Mistake){
+    fun createMistake(mistake: Mistake){
         viewModelScope.launch(Dispatchers.IO){
-            repository.insert(mistake)
+            repository.createMistake(mistake)
         }
     }
 
     fun updateMistake(mistake: Mistake){
         viewModelScope.launch(Dispatchers.IO){
-            repository.update(mistake)
+            repository.updateMistake(mistake)
         }
     }
 
     fun deleteMistake(mistake: Mistake){
         viewModelScope.launch(Dispatchers.IO){
-            repository.delete(mistake)
+            repository.deleteMistake(mistake)
         }
     }
+
+    fun syncMistakes(){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.syncMistakes()
+        }
+    }
+
+    fun getAllRemoteMistakes(){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.getAllRemoteMistakes()
+        }
+    }
+
+//    fun deleteMistake(mistake: Mistake){
+//        viewModelScope.launch(Dispatchers.IO){
+//            repository.delete(mistake)
+//        }
+//    }
 }

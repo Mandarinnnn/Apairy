@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.replace
@@ -20,8 +21,12 @@ import com.example.apairy.fragments.HiveAddFragment
 import com.example.apairy.fragments.HiveListFragment
 import com.example.apairy.fragments.TheoryFragment
 import com.example.apairy.models.HiveViewModel
+import com.example.apairy.models.MistakeViewModel
+import com.example.apairy.models.UserViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
@@ -76,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_smth2 -> {
-                    navController.navigate(R.id.mistakeListFragment)
+                    navController.navigate(R.id.apiaryInfoFragment)
                     true
                 }
 

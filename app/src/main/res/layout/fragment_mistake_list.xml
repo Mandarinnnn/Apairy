@@ -7,6 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".fragments.MistakeListFragment">
 
+    <Button
+        android:id="@+id/btn_sync"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sync"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/svSearch" />
+
     <android.widget.SearchView
         android:id="@+id/svSearch"
         android:layout_width="match_parent"
@@ -26,9 +35,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/svSearch"
-        tools:listitem="@layout/mistake_list_item"
-        tools:itemCount="20"/>
+        app:layout_constraintTop_toBottomOf="@+id/btnWifi"
+        tools:itemCount="20"
+        tools:listitem="@layout/mistake_list_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -42,6 +51,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:contentDescription="Enter How Much Cookies You Want"/>
+
+    <Button
+        android:id="@+id/btnWifi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="wi fi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_sync" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

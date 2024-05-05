@@ -8,6 +8,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.apairy.models.Migration
+import com.example.apairy.models.Mistake
 
 
 @Dao
@@ -21,7 +22,23 @@ interface MigrationDao {
     @Delete
     suspend fun deleteMigration(migration: Migration)
 
+    @Query("UPDATE migration_table SET isLocallyDeleted = 1 WHERE id = :id")
+    suspend fun deleteMigrationLocally(id: String)
 
-    @Query("SELECT * FROM migration_table ORDER BY id ASC")
+
+    @Query("SELECT * FROM migration_table WHERE isLocallyDeleted = 0 ORDER BY id ASC")
     fun getAllMigrations(): LiveData<List<Migration>>
+
+
+    @Query("SELECT * FROM migration_table WHERE isLocallyNew = 1")
+    fun getAllLocallyNewMigrations(): List<Migration>
+
+    @Query("SELECT * FROM migration_table WHERE isLocallyUpdated = 1")
+    fun getAllLocallyUpdatedMigrations(): List<Migration>
+
+    @Query("SELECT * FROM migration_table WHERE isLocallyDeleted = 1")
+    fun getAllLocallyDeletedMigrations(): List<Migration>
+
+    @Query("SELECT MAX(id) FROM migration_table")
+    fun getMaxId(): Int
 }

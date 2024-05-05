@@ -7,6 +7,12 @@
     tools:context=".fragments.MigrationEditFragment"
     android:background="#48EACC08">
 
+    <ImageView
+        android:id="@+id/iv_migration"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:visibility="gone" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -31,15 +37,14 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="Медонос"
+        android:hint="Количество ульев"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_migration_honey_plant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:focusable="false"/>
+            android:inputType="number"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -81,7 +86,8 @@
                 android:id="@+id/et_migration_end_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="text"
+                android:focusable="false"/>
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>

@@ -41,8 +41,8 @@ class HiveAdapter: RecyclerView.Adapter<HiveAdapter.HiveViewHolder>() {
         val currentHive = HiveList[position]
         holder.title.text = currentHive.name
         holder.title.isSelected = true
-        holder.strength.text = currentHive.strength.toString()
-        holder.date.text = currentHive.date
+        holder.strength.text = currentHive.frameCount.toString()
+        holder.date.text = currentHive.queenYear
         holder.date.isSelected = true
 
 

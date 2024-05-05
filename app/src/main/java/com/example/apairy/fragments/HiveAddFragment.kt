@@ -15,6 +15,7 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -22,12 +23,15 @@ import androidx.navigation.fragment.NavHostFragment
 import com.example.apairy.R
 import com.example.apairy.databinding.FragmentHiveAddBinding
 import com.example.apairy.databinding.FragmentHiveListBinding
+import com.example.apairy.models.ApiaryInfoViewModel
 import com.example.apairy.models.Hive
 import com.example.apairy.models.HiveViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Date
 
 
+@AndroidEntryPoint
 class HiveAddFragment : Fragment(), MenuProvider {
 
     private var _binding: FragmentHiveAddBinding? = null
@@ -35,18 +39,13 @@ class HiveAddFragment : Fragment(), MenuProvider {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private lateinit var hiveViewModel: HiveViewModel
+
+    private val hiveViewModel: HiveViewModel by activityViewModels()
+    //private lateinit var hiveViewModel: HiveViewModel
     private lateinit var addHiveView: View
 
 
-    private val imgContract = registerForActivityResult(ActivityResultContracts.PickVisualMedia()){
-        binding.ivPickHive.setImageURI(it)
-        binding.ivPickHive.visibility = View.VISIBLE
-        binding.ivPickHive.tag = it.toString()
-        it?.let{
-            requireActivity().contentResolver.takePersistableUriPermission(it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        }
-    }
+
 
 
 
@@ -69,7 +68,7 @@ class HiveAddFragment : Fragment(), MenuProvider {
         menuHost.addMenuProvider(this,viewLifecycleOwner, Lifecycle.State.RESUMED)
 
 
-        hiveViewModel = ViewModelProvider(this).get(HiveViewModel::class.java)
+        //hiveViewModel = ViewModelProvider(this).get(HiveViewModel::class.java)
         addHiveView = view
 
 
@@ -79,30 +78,25 @@ class HiveAddFragment : Fragment(), MenuProvider {
 
 
 
-        binding.btnPickHive.setOnClickListener{
-            imgContract.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-        }
+
 
     }
 
 
 
     private fun saveHiveToDB(view: View){
-        val title = binding.etHiveNomer.text.toString()
-        val note = binding.etHiveZametki.text.toString()
+        val title = binding.etHiveName.text.toString()
+        val note = binding.etHiveNote.text.toString()
 
-        val frame = binding.enHiveRamki.text.toString().toInt()
-        val honey = binding.enHiveMed.text.toString().toInt()
-        val strength = binding.enHiveSila.text.toString().toInt()
-        val weight = binding.enHiveVes.text.toString().toInt()
+        val frame = binding.enHiveFrame.text.toString()
 
         val queen = binding.etHiveQueen.text.toString()
-        val imageURI = binding.ivPickHive.getTag().toString()
 
-        if (title.isNotEmpty()){
-            val formatter = SimpleDateFormat("EEE, d MMM yyyy HH:mm a")
+
+
+        if (title.isNotEmpty() || note.isNotEmpty() || frame.isNotEmpty() || queen.isNotEmpty()){
             val hive = Hive(
-                0, title, frame, honey, strength, weight, note, formatter.format(Date()), queen, imageURI
+                title, frame.toInt(), queen, note, false, true, false, false
             )
             hiveViewModel.insertHive(hive)
             Toast.makeText(addHiveView.context,"Улей добавлен", Toast.LENGTH_SHORT).show()

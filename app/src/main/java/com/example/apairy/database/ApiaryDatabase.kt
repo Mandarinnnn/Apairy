@@ -17,25 +17,25 @@ abstract class ApiaryDatabase: RoomDatabase() {
     abstract fun migrationDao() : MigrationDao
     abstract fun mistakeDao() : MistakeDao
 
-    companion object{
-        @Volatile
-        private var INSTANCE: ApiaryDatabase? = null
-
-        fun getDatabase(context: Context) :ApiaryDatabase{
-            val tempInstance = INSTANCE
-            if(tempInstance != null) {
-                return tempInstance
-            }
-            synchronized(this){
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    ApiaryDatabase::class.java,
-                    "apiary_database"
-                ).build()
-                INSTANCE = instance
-                return instance
-            }
-        }
-    }
+//    companion object{
+//        @Volatile
+//        private var INSTANCE: ApiaryDatabase? = null
+//
+//        fun getDatabase(context: Context) :ApiaryDatabase{
+//            val tempInstance = INSTANCE
+//            if(tempInstance != null) {
+//                return tempInstance
+//            }
+//            synchronized(this){
+//                val instance = Room.databaseBuilder(
+//                    context.applicationContext,
+//                    ApiaryDatabase::class.java,
+//                    "apiary_database"
+//                ).build()
+//                INSTANCE = instance
+//                return instance
+//            }
+//        }
+//    }
 
 }

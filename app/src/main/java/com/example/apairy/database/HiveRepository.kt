@@ -6,13 +6,14 @@ import com.example.apairy.models.HiveState
 import com.example.apairy.models.HoneyAmountCounts
 import com.example.apairy.models.StrengthCounts
 import com.example.apairy.models.relations.HiveWithStates
+import javax.inject.Inject
 
-class HiveRepository (private val hiveDao: HiveDao){
+class HiveRepository @Inject constructor(private val hiveDao: HiveDao){
 
     val getAllHives: LiveData<List<Hive>> = hiveDao.getAllHives()
 
     suspend fun insert(hive: Hive){
-        hiveDao.insertHive(hive)
+        hiveDao.createHive(hive)
     }
 
     suspend fun delete(hive: Hive){
@@ -24,23 +25,23 @@ class HiveRepository (private val hiveDao: HiveDao){
     }
 
     suspend fun insert(hiveState: HiveState){
-        hiveDao.insertHiveState(hiveState)
+        hiveDao.createHiveState(hiveState)
     }
 
     suspend fun delete(hiveState: HiveState){
         hiveDao.deleteHiveState(hiveState)
     }
 
-    fun getHiveWithStates(hiveId: Int): LiveData<HiveWithStates> {
+    fun getHiveWithStates(hiveId: String): LiveData<HiveWithStates> {
         return hiveDao.getHiveWithStates(hiveId)
     }
 
-    fun getStatesForHive(hiveId: Int): LiveData<List<HiveState>> {
+    fun getStatesForHive(hiveId: String): LiveData<List<HiveState>> {
         return hiveDao.getStatesForHive(hiveId)
     }
 
     suspend fun getTotalStrengthCounts(): StrengthCounts{
-        return hiveDao.getTotalStrengthCounts()
+        return hiveDao.getTotalStrengthCounts2()
     }
 
     suspend fun getTotalHoneyAmount(): HoneyAmountCounts{

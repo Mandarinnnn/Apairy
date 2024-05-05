@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.apairy.R
@@ -21,13 +22,15 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.android.material.color.MaterialColors
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class ApiaryInfoFragment : Fragment() {
     private var _binding: FragmentApiaryInfoBinding? = null
     private val binding get() = _binding!!
-    private lateinit var apiaryInfoViewModel: ApiaryInfoViewModel
-
+    //lateinit var apiaryInfoViewModel: ApiaryInfoViewModel
+    private val apiaryInfoViewModel: ApiaryInfoViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,7 +46,7 @@ class ApiaryInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        apiaryInfoViewModel = ViewModelProvider(this).get(ApiaryInfoViewModel::class.java)
+       // apiaryInfoViewModel = ViewModelProvider(this).get(ApiaryInfoViewModel::class.java)
 
 
        // val list: ArrayList<PieEntry> = ArrayList()

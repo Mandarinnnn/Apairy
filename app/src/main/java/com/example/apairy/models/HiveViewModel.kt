@@ -3,54 +3,95 @@ package com.example.apairy.models
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.apairy.database.ApiaryDatabase
 import com.example.apairy.database.HiveRepository
 import com.example.apairy.models.relations.HiveWithStates
+import com.example.apairy.repository.HiveeRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HiveViewModel(application: Application): AndroidViewModel(application) {
-    private val repository: HiveRepository
-    val getAllHives: LiveData<List<Hive>>
+@HiltViewModel
+class HiveViewModel @Inject constructor(val repository: HiveeRepository): ViewModel() {
+    //private val repository: HiveRepository
+    val getAllHives: LiveData<List<Hive>> = repository.getAllHives
 
-    init{
-        val habitDao = ApiaryDatabase.getDatabase(application).hiveDao()
-        repository = HiveRepository(habitDao)
-        getAllHives = repository.getAllHives
-    }
+//    init{
+//        val habitDao = ApiaryDatabase.getDatabase(application).hiveDao()
+//        repository = HiveRepository(habitDao)
+//        getAllHives = repository.getAllHives
+//    }
 
     fun insertHive(hive: Hive){
         viewModelScope.launch(Dispatchers.IO){
-            repository.insert(hive)
+            repository.createHive(hive)
         }
     }
 
     fun updateHive(hive: Hive){
         viewModelScope.launch(Dispatchers.IO){
-            repository.update(hive)
+            repository.updateHive(hive)
         }
     }
 
     fun deleteHive(hive: Hive){
         viewModelScope.launch(Dispatchers.IO){
-            repository.delete(hive)
+            repository.deleteHive(hive)
         }
     }
 
     fun insertHiveState(hiveState: HiveState){
         viewModelScope.launch(Dispatchers.IO){
-            repository.insert(hiveState)
+            repository.createHiveState(hiveState)
         }
     }
 
     fun deleteHiveState(hiveState: HiveState){
         viewModelScope.launch(Dispatchers.IO){
-            repository.delete(hiveState)
+            repository.deleteHiveState(hiveState)
         }
     }
 
-    fun getStatesForHive(hiveId: Int): LiveData<List<HiveState>> {
+    fun getStatesForHive(hiveId: String): LiveData<List<HiveState>> {
         return repository.getStatesForHive(hiveId)
     }
+
+
+
+
+
+
+
+
+
+
+    fun syncHives(){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.syncHives()
+        }
+    }
+
+    fun getAllRemoteHives(){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.getAllRemoteHives()
+        }
+    }
+
+    fun syncHiveStates(){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.syncHiveStates()
+        }
+    }
+
+    fun getAllRemoteStates(){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.getAllRemoteHiveStates()
+        }
+    }
+
+
+
 }

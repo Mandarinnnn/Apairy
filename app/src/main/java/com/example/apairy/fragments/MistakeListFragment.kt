@@ -8,9 +8,11 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -22,15 +24,18 @@ import com.example.apairy.databinding.FragmentMigrationListBinding
 import com.example.apairy.databinding.FragmentMistakeListBinding
 import com.example.apairy.models.MigrationViewModel
 import com.example.apairy.models.MistakeViewModel
+import com.example.apairy.utils.isWifiEnabled
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class MistakeListFragment : Fragment(), MenuProvider {
 
 
     private var _binding: FragmentMistakeListBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var mistakeViewModel: MistakeViewModel
+    private val mistakeViewModel: MistakeViewModel by activityViewModels()
     private lateinit var adapter: MistakeAdapter
 
     override fun onCreateView(
@@ -55,7 +60,7 @@ class MistakeListFragment : Fragment(), MenuProvider {
         adapter = MistakeAdapter()
         binding.rvMistakeList.adapter = adapter
 
-        mistakeViewModel = ViewModelProvider(this).get(MistakeViewModel::class.java)
+        //mistakeViewModel = ViewModelProvider(this).get(MistakeViewModel::class.java)
 
         mistakeViewModel.getAllMistakes.observe(viewLifecycleOwner,){ list ->
             list?.let{
@@ -67,6 +72,18 @@ class MistakeListFragment : Fragment(), MenuProvider {
 
             it.findNavController().navigate(R.id.action_mistakeListFragment_to_mistakeAddFragment)
 
+        }
+
+        binding.btnSync.setOnClickListener{
+            mistakeViewModel.syncMistakes()
+        }
+
+        binding.btnWifi.setOnClickListener{
+            if(isWifiEnabled(requireContext())){
+                Toast.makeText(requireContext(),"В одной локалке", Toast.LENGTH_SHORT).show()
+            } else{
+                Toast.makeText(requireContext(),"Не одной локалке", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

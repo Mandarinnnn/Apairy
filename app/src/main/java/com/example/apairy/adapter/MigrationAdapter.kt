@@ -25,7 +25,7 @@ class MigrationAdapter: RecyclerView.Adapter<MigrationAdapter.MigrationViewHolde
     inner class MigrationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val migration_layout = itemView.findViewById<CardView>(R.id.migration_card)
         val title = itemView.findViewById<TextView>(R.id.tv_migration_title)
-        val honeyPlant = itemView.findViewById<TextView>(R.id.tv_migration_honey_plant)
+        val hiveCount = itemView.findViewById<TextView>(R.id.tv_migration_hive_count)
         val date = itemView.findViewById<TextView>(R.id.tv_migration_date)
     }
 
@@ -38,7 +38,7 @@ class MigrationAdapter: RecyclerView.Adapter<MigrationAdapter.MigrationViewHolde
         val currentMigration = MigrationList[position]
         holder.title.text = currentMigration.name
         //holder.title.isSelected = true
-        holder.honeyPlant.text = currentMigration.honeyPlant.toString()
+        holder.hiveCount.text = currentMigration.hiveCount.toString()
         holder.date.text = currentMigration.startDate
         //holder.date.isSelected = true
 

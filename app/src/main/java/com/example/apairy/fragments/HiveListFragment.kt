@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.findFragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -24,8 +25,10 @@ import com.example.apairy.R
 import com.example.apairy.adapter.HiveAdapter
 import com.example.apairy.databinding.FragmentHiveListBinding
 import com.example.apairy.models.HiveViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class HiveListFragment : Fragment(), SearchView.OnQueryTextListener, MenuProvider {
 
 
@@ -37,7 +40,7 @@ class HiveListFragment : Fragment(), SearchView.OnQueryTextListener, MenuProvide
 
 
     private lateinit var hiveAdapter: HiveAdapter
-    private lateinit var hiveViewModel: HiveViewModel
+    private val hiveViewModel: HiveViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,7 +67,7 @@ class HiveListFragment : Fragment(), SearchView.OnQueryTextListener, MenuProvide
         hiveAdapter = HiveAdapter()
         binding.rvHiveList.adapter = hiveAdapter
 
-        hiveViewModel = ViewModelProvider(this).get(HiveViewModel::class.java)
+        //hiveViewModel = ViewModelProvider(this).get(HiveViewModel::class.java)
 
         hiveViewModel.getAllHives.observe(viewLifecycleOwner,){ list ->
             list?.let{
