@@ -9,7 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.activityViewModels
@@ -27,9 +27,8 @@ import com.example.apairy.databinding.FragmentHiveListBinding
 import com.example.apairy.models.HiveViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
-class HiveListFragment : Fragment(), SearchView.OnQueryTextListener, MenuProvider {
+class HiveListFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener {
 
 
     private var _binding: FragmentHiveListBinding? = null
@@ -92,16 +91,30 @@ class HiveListFragment : Fragment(), SearchView.OnQueryTextListener, MenuProvide
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        TODO("Not yet implemented")
+        return false
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        TODO("Not yet implemented")
+        if(newText != null){
+            hiveAdapter.filterHiveList(newText)
+        }
+        return true
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menu.clear()
         menuInflater.inflate(R.menu.hive_home_menu, menu)
+
+        val searchItem = menu.findItem(R.id.searchMenu)
+        val searchView = searchItem.actionView as SearchView
+        searchView.setOnQueryTextListener(this)
+
+        (activity as? MainActivity)?.allocateTitle("Улья")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as? MainActivity)?.changeBottomItem()
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {

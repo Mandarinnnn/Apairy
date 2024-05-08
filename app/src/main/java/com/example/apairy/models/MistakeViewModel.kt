@@ -3,12 +3,15 @@ package com.example.apairy.models
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.apairy.database.ApiaryDatabase
 import com.example.apairy.database.MigrationRepository
 import com.example.apairy.database.MistakeRepository
+import com.example.apairy.remote.models.User
 import com.example.apairy.repository.MistakeeRepository
+import com.example.apairy.utils.Answer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,11 +22,8 @@ class MistakeViewModel @Inject constructor(val repository: MistakeeRepository): 
     //private val repository: MistakeRepository
     val getAllMistakes: LiveData<List<Mistake>> = repository.getAllMistakes
 
-//    init{
-//        val mistakeDao = ApiaryDatabase.getDatabase(application).mistakeDao()
-//        repository = MistakeRepository(mistakeDao)
-//        getAllMistakes = repository.getAllMistakes
-//    }
+    private val _syncState = MutableLiveData<Answer<String>?>()
+    val syncState: LiveData<Answer<String>?> = _syncState
 
     fun createMistake(mistake: Mistake){
         viewModelScope.launch(Dispatchers.IO){
@@ -53,6 +53,22 @@ class MistakeViewModel @Inject constructor(val repository: MistakeeRepository): 
         viewModelScope.launch(Dispatchers.IO){
             repository.getAllRemoteMistakes()
         }
+    }
+
+    fun deleteAll(){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.deleteAll()
+        }
+    }
+
+    fun getSyncState(){
+        viewModelScope.launch(Dispatchers.IO){
+            _syncState.postValue(repository.syncState())
+        }
+    }
+
+    fun clearSyncState() {
+        _syncState.value = null
     }
 
 //    fun deleteMistake(mistake: Mistake){

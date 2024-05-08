@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.apairy.MainActivity
 import com.example.apairy.R
 import com.example.apairy.databinding.FragmentApiaryInfoBinding
 import com.example.apairy.databinding.FragmentHiveAddBinding
@@ -48,7 +49,7 @@ class ApiaryInfoFragment : Fragment() {
 
        // apiaryInfoViewModel = ViewModelProvider(this).get(ApiaryInfoViewModel::class.java)
 
-
+        (activity as? MainActivity)?.allocateTitle("Статистика")
        // val list: ArrayList<PieEntry> = ArrayList()
 
         apiaryInfoViewModel.totalStrengthCounts.observe(viewLifecycleOwner, Observer { counts ->
@@ -81,33 +82,39 @@ class ApiaryInfoFragment : Fragment() {
         apiaryInfoViewModel.getTotalStrengthCounts()
 
 
-        apiaryInfoViewModel.totalHoneyAmount.observe(viewLifecycleOwner, Observer { counts ->
+        apiaryInfoViewModel.totalHoneyAmount.observe(viewLifecycleOwner, Observer { count ->
 
-            val list: ArrayList<BarEntry> = ArrayList()
-            list.add(BarEntry(1f, counts.honeyFrom1To3.toFloat()))
-            list.add(BarEntry(2f, counts.honeyFrom3To5.toFloat()))
-            list.add(BarEntry(3f, counts.honeyFrom5To7.toFloat()))
-            list.add(BarEntry(4f, counts.honeyFrom7To9.toFloat()))
-            list.add(BarEntry(5f, counts.honeyFrom9ToMore.toFloat()))
-
-            val barDataSet = BarDataSet(list, "list")
-
-            barDataSet.setColors(ColorTemplate.MATERIAL_COLORS,255)
-
-            barDataSet.valueTextSize = 15f
-            barDataSet.valueTextColor = Color.BLACK
-
-            val barData = BarData(barDataSet)
-
-            binding.barChart.data = barData
-            //binding.barChart.setFitBars(true)
-
-            binding.barChart.description.text = "Bar"
-
-            binding.barChart.invalidate()
-
+            binding.tvInfoHoneyAmount.text = "Общее количество мёда: " + count.toString()+ " кг."
+//            val list: ArrayList<BarEntry> = ArrayList()
+//            list.add(BarEntry(1f, counts.honeyFrom1To3.toFloat()))
+//            list.add(BarEntry(2f, counts.honeyFrom3To5.toFloat()))
+//            list.add(BarEntry(3f, counts.honeyFrom5To7.toFloat()))
+//            list.add(BarEntry(4f, counts.honeyFrom7To9.toFloat()))
+//            list.add(BarEntry(5f, counts.honeyFrom9ToMore.toFloat()))
+//
+//            val barDataSet = BarDataSet(list, "list")
+//
+//            barDataSet.setColors(ColorTemplate.MATERIAL_COLORS,255)
+//
+//            barDataSet.valueTextSize = 15f
+//            barDataSet.valueTextColor = Color.BLACK
+//
+//            val barData = BarData(barDataSet)
+//
+//            binding.barChart.data = barData
+//            //binding.barChart.setFitBars(true)
+//
+//            binding.barChart.description.text = "Bar"
+//
+//            binding.barChart.invalidate()
         })
         apiaryInfoViewModel.getTotalHoneyAmount()
+
+
+
+        apiaryInfoViewModel.getAllHives.observe(viewLifecycleOwner,){ list ->
+            binding.tvInfoHiveCount.text = "Общее количество ульев: "+ list.size.toString()
+        }
     }
 
 }

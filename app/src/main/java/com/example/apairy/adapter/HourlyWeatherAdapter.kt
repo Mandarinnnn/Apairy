@@ -37,7 +37,7 @@ class HourlyWeatherAdapter: RecyclerView.Adapter<HourlyWeatherAdapter.HourlyWeat
         holder.time.text = currentWeather.time.substring(11)
        // holder.weather. =
         Picasso.get().load("https:" + currentWeather.weather).into(holder.ivWeather)
-        holder.temperature.text = currentWeather.temperature.toString()
+        holder.temperature.text = currentWeather.temperature.toString() + "°"
     }
 
     fun updateHourlyWeatherList(newList: List<CurrentWeatherHourly>) {

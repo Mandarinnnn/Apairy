@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.apairy.MainActivity
 import com.example.apairy.R
 import com.example.apairy.adapter.TheoryAdapter
 import com.example.apairy.databinding.FragmentTheoryBinding
@@ -91,6 +92,14 @@ class TheoryListFragment : Fragment() {
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        (activity as? MainActivity)?.hideBottomNavigationView()
+    }
 
+    override fun onPause() {
+        super.onPause()
+        (activity as? MainActivity)?.showBottomNavigationView()
+    }
 
 }

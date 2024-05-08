@@ -5,21 +5,21 @@
         android:icon="@drawable/hive_bottom"
         android:title="Улья"/>
 
-    <item android:id="@+id/nav_statistics"
-        android:icon="@drawable/baseline_honeycomb"
-        android:title="Статистика"/>
+    <item android:id="@+id/nav_weather"
+        android:icon="@drawable/bottom_weather"
+        android:title="Погода"/>
 
     <item android:id="@+id/nav_theory"
-        android:icon="@drawable/baseline_honeycomb"
+        android:icon="@drawable/bottom_theory"
         android:title="Теория"/>
 
-    <item android:id="@+id/nav_smth1"
-        android:icon="@drawable/baseline_honeycomb"
-        android:title="Что-то там"/>
+    <item android:id="@+id/nav_info"
+        android:icon="@drawable/bottom_stat"
+        android:title="Статистика"/>
 
-    <item android:id="@+id/nav_smth2"
-        android:icon="@drawable/baseline_honeycomb"
-        android:title="Что-то там"/>
+    <item android:id="@+id/nav_menu"
+        android:icon="@drawable/bottom_menu"
+        android:title="Еще"/>
 
 
 </menu>

@@ -9,6 +9,8 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
@@ -26,6 +28,7 @@ import com.example.apairy.models.HiveViewModel
 import com.example.apairy.models.MigrationViewModel
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.apairy.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -95,7 +98,13 @@ class MigrationListFragment : Fragment(),MenuProvider, SearchView.OnQueryTextLis
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        TODO("Not yet implemented")
+        return when(menuItem.itemId){
+            android.R.id.home -> {
+                findNavController().popBackStack()
+                true
+            }
+            else -> false
+        }
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -107,5 +116,15 @@ class MigrationListFragment : Fragment(),MenuProvider, SearchView.OnQueryTextLis
             adapter.filterMigrationList(newText)
         }
         return true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as? MainActivity)?.hideBottomNavigationView()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        (activity as? MainActivity)?.showBottomNavigationView()
     }
 }

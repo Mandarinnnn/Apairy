@@ -105,24 +105,42 @@ class MistakeeRepository @Inject constructor(val api: ApiaryApi, val mistakeDao:
     }
 
 
-    suspend fun getAllRemoteMistakes(){
-        try{
+    suspend fun getAllRemoteMistakes():Answer<String> {
+        return try{
             val token = sessionManager.getToken()
             val remoteMistakes = api.getAllMistakes("Bearer $token")
+
+
 
             remoteMistakes.forEach {
                 val mistake = Mistake(it.name, it.solution, it.year, false,
                     false, false, it.id)
                 mistakeDao.insertMistake(mistake)
             }
+            Answer.Success("Success")
         } catch (e:Exception){
             e.printStackTrace()
+            Answer.Error("Error")
         }
 
 
 
     }
 
+    suspend fun syncState():Answer<String>{
+        return try{
+            val token = sessionManager.getToken()
+            val remoteMistakes = api.getAllMistakes("Bearer $token")
 
+
+            Answer.Success("Success")
+        } catch (e:Exception){
+            Answer.Error("Error")
+        }
+    }
+
+    suspend fun deleteAll(){
+        mistakeDao.deleteAllMistakes()
+    }
 
 }

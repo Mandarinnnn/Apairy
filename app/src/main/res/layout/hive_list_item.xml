@@ -5,12 +5,11 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:background="@drawable/hive_png"
     android:elevation="8dp"
     app:cardCornerRadius="8dp">
 
     <RelativeLayout
-        android:id="@+id/theory_topic1"
+        android:id="@+id/rl_hive"
         android:layout_width="wrap_content"
         android:layout_height="120dp"
         android:layout_margin="5dp"
@@ -39,16 +38,10 @@
 
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/tv_hive_strength"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:text="Strength"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
+
 
             <TextView
+                android:layout_marginTop="18dp"
                 android:id="@+id/tv_hive_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

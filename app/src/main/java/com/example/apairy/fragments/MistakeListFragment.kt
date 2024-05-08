@@ -16,7 +16,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.apairy.MainActivity
 import com.example.apairy.R
 import com.example.apairy.adapter.MigrationAdapter
 import com.example.apairy.adapter.MistakeAdapter
@@ -29,7 +31,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class MistakeListFragment : Fragment(), MenuProvider {
+class MistakeListFragment : Fragment(), MenuProvider,SearchView.OnQueryTextListener {
 
 
     private var _binding: FragmentMistakeListBinding? = null
@@ -90,10 +92,40 @@ class MistakeListFragment : Fragment(), MenuProvider {
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menu.clear()
         menuInflater.inflate(R.menu.hive_home_menu, menu)
+
+        val searchItem = menu.findItem(R.id.searchMenu)
+        val searchView = searchItem.actionView as SearchView
+        searchView.setOnQueryTextListener(this)
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        TODO("Not yet implemented")
+        return when(menuItem.itemId){
+            android.R.id.home -> {
+                findNavController().popBackStack()
+                true
+            }
+            else -> false
+        }
+    }
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        if(newText != null){
+            adapter.filterMistakeList(newText)
+        }
+        return true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as? MainActivity)?.hideBottomNavigationView()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        (activity as? MainActivity)?.showBottomNavigationView()
     }
 
 

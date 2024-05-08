@@ -5,31 +5,42 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:background="@drawable/round_bg"
+    android:background="@drawable/round_bg2"
     android:id="@+id/theory_layout">
 
-    <ImageView
-        android:id="@+id/iv_theory_image"
-        android:layout_width="140dp"
-        android:layout_height="109dp"
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:srcCompat="@drawable/apiary" />
+        app:layout_constraintVertical_bias="0.513">
+
+        <ImageView
+            android:id="@+id/iv_theory_image"
+            android:layout_width="133dp"
+            android:layout_height="100dp"
+            tools:srcCompat="@drawable/apiary" />
+
+    </androidx.cardview.widget.CardView>
+
 
     <TextView
         android:id="@+id/tv_theory_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:text="TextView"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_theory_image"
-        app:layout_constraintStart_toEndOf="@+id/iv_theory_image"
-        app:layout_constraintTop_toTopOf="@+id/iv_theory_image" />
+        app:layout_constraintBottom_toBottomOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.101"
+        app:layout_constraintStart_toEndOf="@+id/cardView"
+        app:layout_constraintTop_toTopOf="@+id/cardView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

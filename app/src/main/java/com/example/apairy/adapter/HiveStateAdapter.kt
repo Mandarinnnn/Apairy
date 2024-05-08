@@ -12,7 +12,7 @@ import com.example.apairy.fragments.HiveListFragmentDirections
 import com.example.apairy.models.Hive
 import com.example.apairy.models.HiveState
 
-class HiveStateAdapter: RecyclerView.Adapter<HiveStateAdapter.HiveStateViewHolder>() {
+class HiveStateAdapter(val listener: HiveStateLongClickListener): RecyclerView.Adapter<HiveStateAdapter.HiveStateViewHolder>() {
     private val HiveStateList = ArrayList<HiveState>()
     private val fullList = ArrayList<HiveState>()
 
@@ -40,6 +40,12 @@ class HiveStateAdapter: RecyclerView.Adapter<HiveStateAdapter.HiveStateViewHolde
         holder.strength.text = "сила:   " + currentHiveState.strength.toString()
         holder.honey.text = "мед:    " + currentHiveState.honey.toString()
         holder.frameWithBrood.text = "расп.:  " + currentHiveState.framesWithBrood.toString()
+
+
+        holder.hiveStateLayout.setOnLongClickListener{
+            listener.onLongItemClicked(HiveStateList[holder.adapterPosition], holder.hiveStateLayout)
+            true
+        }
     }
 
     fun updateHiveStateList(newList: List<HiveState>) {
@@ -49,5 +55,10 @@ class HiveStateAdapter: RecyclerView.Adapter<HiveStateAdapter.HiveStateViewHolde
         HiveStateList.clear()
         HiveStateList.addAll(fullList)
         notifyDataSetChanged()
+    }
+
+
+    interface HiveStateLongClickListener{
+        fun onLongItemClicked(hiveState: HiveState, cardView: CardView)
     }
 }

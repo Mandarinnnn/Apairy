@@ -14,13 +14,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="Название"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:hint="Название">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_mistake_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,16 +59,16 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="Примечания"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:hint="Примечания">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_mistake_solution"
+            android:gravity="top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:minHeight="300dp"
-            android:gravity="top"/>
+            android:background="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
 

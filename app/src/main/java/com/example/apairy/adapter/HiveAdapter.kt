@@ -24,7 +24,6 @@ class HiveAdapter: RecyclerView.Adapter<HiveAdapter.HiveViewHolder>() {
     inner class HiveViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val hive_layout = itemView.findViewById<CardView>(R.id.hive_card)
         val title = itemView.findViewById<TextView>(R.id.tv_hive_title)
-        val strength = itemView.findViewById<TextView>(R.id.tv_hive_strength)
         val date = itemView.findViewById<TextView>(R.id.tv_hive_date)
     }
 
@@ -40,11 +39,13 @@ class HiveAdapter: RecyclerView.Adapter<HiveAdapter.HiveViewHolder>() {
     override fun onBindViewHolder(holder: HiveViewHolder, position: Int) {
         val currentHive = HiveList[position]
         holder.title.text = currentHive.name
-        holder.title.isSelected = true
-        holder.strength.text = currentHive.frameCount.toString()
         holder.date.text = currentHive.queenYear
-        holder.date.isSelected = true
 
+        if(currentHive.isMarked){
+            holder.hive_layout.setCardBackgroundColor(0xFFffcf40.toInt())
+        }else{
+            holder.hive_layout.setCardBackgroundColor(0xFFFFFFFF.toInt())
+        }
 
         holder.hive_layout.setOnClickListener{
 
@@ -87,10 +88,7 @@ class HiveAdapter: RecyclerView.Adapter<HiveAdapter.HiveViewHolder>() {
         notifyDataSetChanged()
     }
 
-    interface HiveClickListener{
-        fun onItemClicked(hive: Hive)
-        fun onLongItemClicked(hive: Hive,cardView: CardView)
-    }
+
 
 
 }

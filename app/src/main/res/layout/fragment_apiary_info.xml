@@ -24,15 +24,29 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <TextView
+                android:id="@+id/tv_info_hive_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Общее количество ульев:"
+                android:textSize="20sp"
+                android:layout_marginBottom="20dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_info_honey_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Общее количество меда:"
+                android:textSize="20sp"
+                android:layout_marginBottom="20dp"
+                />
+
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/pie_chart"
                 android:layout_width="match_parent"
                 android:layout_height="500dp"/>
 
-            <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/bar_chart"
-                android:layout_width="match_parent"
-                android:layout_height="500dp" />
         </LinearLayout>
     </ScrollView>
 

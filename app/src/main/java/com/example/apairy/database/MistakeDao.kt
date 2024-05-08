@@ -42,4 +42,8 @@ interface MistakeDao {
     @Query("SELECT MAX(id) FROM mistakes_table")
     fun getMaxId(): Int
 
+    @Query("DELETE FROM mistakes_table")
+    suspend fun deleteAllMistakes()
+
+
 }

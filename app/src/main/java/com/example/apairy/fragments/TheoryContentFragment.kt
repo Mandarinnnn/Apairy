@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import com.example.apairy.MainActivity
 import com.example.apairy.R
 import com.example.apairy.databinding.FragmentTheoryContentBinding
 import com.example.apairy.databinding.FragmentTheoryListBinding
@@ -43,5 +44,13 @@ class TheoryContentFragment : Fragment() {
 
         binding.webView.loadUrl("file:///android_asset/cat_${category}_item_${position}.html")
     }
+    override fun onResume() {
+        super.onResume()
+        (activity as? MainActivity)?.hideBottomNavigationView()
+    }
 
+    override fun onPause() {
+        super.onPause()
+        (activity as? MainActivity)?.showBottomNavigationView()
+    }
 }

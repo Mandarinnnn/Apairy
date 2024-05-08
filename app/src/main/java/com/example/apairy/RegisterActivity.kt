@@ -37,9 +37,6 @@ class RegisterActivity : AppCompatActivity() {
                 is Answer.Error -> {
                     Toast.makeText(this,answer.errorMessage, Toast.LENGTH_SHORT).show()
                 }
-                is Answer.Loading -> {
-
-                }
             }
         }
 

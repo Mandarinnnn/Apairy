@@ -68,10 +68,10 @@ interface HiveDao {
     fun getHiveWithStates(hiveId: String): LiveData<HiveWithStates>
 
 
-    @Query("SELECT * FROM hive_states_table WHERE hiveId = :hiveId ORDER BY id DESC")
+    @Query("SELECT * FROM hive_states_table WHERE hiveId = :hiveId ORDER BY id ASC")
     fun getAllStatesForHive(hiveId: String): LiveData<List<HiveState>>
 
-    @Query("SELECT * FROM hive_states_table WHERE hiveId = :hiveId AND isLocallyDeleted = 0 ORDER BY id DESC")
+    @Query("SELECT * FROM hive_states_table WHERE hiveId = :hiveId AND isLocallyDeleted = 0 ORDER BY date DESC")
     fun getStatesForHive(hiveId: String): LiveData<List<HiveState>>
 
 
@@ -139,7 +139,11 @@ interface HiveDao {
 
 
 
-
+    @Query("SELECT SUM(honey) AS strongCount " +
+            "FROM (" +
+            "SELECT honey FROM hive_states_table AS hst "+
+            "WHERE date = (SELECT MAX(date) FROM hive_states_table AS hst2 WHERE hst.hiveId = hst2.hiveId AND hst2.isLocallyDeleted = 0) GROUP BY hiveId)")
+    suspend fun getTotalHoneyAmount2(): Float
 
 
     @Query("SELECT SUM(CASE WHEN strength >= 9 THEN 1 ELSE 0 END) AS strongCount, " +
@@ -147,8 +151,17 @@ interface HiveDao {
             "       SUM(CASE WHEN strength BETWEEN 0 AND 3 THEN 1 ELSE 0 END) AS weakCount " +
             "FROM (" +
             "SELECT strength FROM hive_states_table AS hst "+
-            "WHERE date = (SELECT MAX(date) FROM hive_states_table AS hst2 WHERE hst.hiveId = hst2.hiveId) GROUP BY hiveId)")
+            "WHERE date = (SELECT MAX(date) FROM hive_states_table AS hst2 WHERE hst.hiveId = hst2.hiveId AND hst2.isLocallyDeleted = 0) GROUP BY hiveId)")
     suspend fun getTotalStrengthCounts2(): StrengthCounts
+
+
+
+
+    @Query("DELETE FROM hives_table")
+    suspend fun deleteAllHives()
+
+    @Query("DELETE FROM hive_states_table")
+    suspend fun deleteAllHiveStates()
 //    @Query("UPDATE hives_table Set name = :name, frame = :frame, honey = :honey, strength = :strength, weight = :weight, note = :note WHERE id = :id")
 //    suspend fun update(id: Int?, name: String?, frame: Int?,honey: Int?,
 //                       strength: Int?,weight: Int?,note: String?,)

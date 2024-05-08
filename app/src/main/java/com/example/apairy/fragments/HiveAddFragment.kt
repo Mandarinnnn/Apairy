@@ -1,6 +1,7 @@
 package com.example.apairy.fragments
 
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,6 +11,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,6 +23,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import com.example.apairy.MainActivity
 import com.example.apairy.R
 import com.example.apairy.databinding.FragmentHiveAddBinding
 import com.example.apairy.databinding.FragmentHiveListBinding
@@ -28,6 +32,7 @@ import com.example.apairy.models.Hive
 import com.example.apairy.models.HiveViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 
 
@@ -74,6 +79,9 @@ class HiveAddFragment : Fragment(), MenuProvider {
 
 
 
+        binding.etHiveQueen.setOnClickListener{
+            showDatePicker(binding.etHiveQueen)
+        }
 
 
 
@@ -92,11 +100,13 @@ class HiveAddFragment : Fragment(), MenuProvider {
 
         val queen = binding.etHiveQueen.text.toString()
 
+        val isMarked = binding.swHive.isChecked
+
 
 
         if (title.isNotEmpty() || note.isNotEmpty() || frame.isNotEmpty() || queen.isNotEmpty()){
             val hive = Hive(
-                title, frame.toInt(), queen, note, false, true, false, false
+                title, frame.toInt(), queen, note, isMarked, true, false, false
             )
             hiveViewModel.insertHive(hive)
             Toast.makeText(addHiveView.context,"Улей добавлен", Toast.LENGTH_SHORT).show()
@@ -109,6 +119,8 @@ class HiveAddFragment : Fragment(), MenuProvider {
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menu.clear()
         menuInflater.inflate(R.menu.hive_add_menu, menu)
+
+        (activity as? MainActivity)?.allocateTitle("")
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -121,9 +133,30 @@ class HiveAddFragment : Fragment(), MenuProvider {
         }
     }
 
+    private fun showDatePicker(editText: EditText) {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
 
+        val datePickerDialog = DatePickerDialog(
+            requireContext(), { view: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
+                val selectedDate = "${dayOfMonth}.${month + 1}.${year}"
+                editText.setText(selectedDate)
+            }, year, month, day
+        )
+        datePickerDialog.show()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as? MainActivity)?.hideBottomNavigationView()
+    }
 
+    override fun onPause() {
+        super.onPause()
+        (activity as? MainActivity)?.showBottomNavigationView()
+    }
 
 
     override fun onDestroyView() {

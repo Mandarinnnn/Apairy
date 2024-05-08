@@ -93,5 +93,9 @@ class HiveViewModel @Inject constructor(val repository: HiveeRepository): ViewMo
     }
 
 
-
+    fun deleteAll(){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.deleteAll()
+        }
+    }
 }

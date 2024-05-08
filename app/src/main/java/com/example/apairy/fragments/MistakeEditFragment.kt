@@ -106,7 +106,8 @@ class MistakeEditFragment : Fragment(),MenuProvider {
 
 
         val mistake = Mistake(
-            title, solution!!, year, false, true, false
+            title, solution!!, year, currentMistake.isLocallyNew, true, currentMistake.isLocallyDeleted,
+            currentMistake.id
         )
         mistakeViewModel.updateMistake(mistake)
         Toast.makeText(editMistakeView.context,"Информация добавлена", Toast.LENGTH_SHORT).show()
@@ -147,5 +148,15 @@ class MistakeEditFragment : Fragment(),MenuProvider {
             }
             else -> false
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as? MainActivity)?.hideBottomNavigationView()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        (activity as? MainActivity)?.showBottomNavigationView()
     }
 }

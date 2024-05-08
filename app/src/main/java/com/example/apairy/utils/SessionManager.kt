@@ -2,6 +2,7 @@ package com.example.apairy.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import kotlin.math.E
 
 class SessionManager(val context: Context) {
 
@@ -11,6 +12,7 @@ class SessionManager(val context: Context) {
 
     companion object {
         private const val TOKEN_KEY = "TOKEN_KEY"
+        private const val EMAIL = "EMAIL"
     }
 
     fun saveToken(token: String){
@@ -19,14 +21,25 @@ class SessionManager(val context: Context) {
         editor.apply()
     }
 
+    fun saveEmail(email: String){
+        val editor = sharedPreferences.edit()
+        editor.putString(EMAIL, email)
+        editor.apply()
+    }
+
 
     fun getToken(): String?{
         return sharedPreferences.getString(TOKEN_KEY, null)
     }
 
+    fun getEmail(): String?{
+        return sharedPreferences.getString(EMAIL, null)
+    }
+
     fun logout(){
         val editor = sharedPreferences.edit()
         editor.remove(TOKEN_KEY)
+        editor.remove(EMAIL)
         editor.apply()
     }
 

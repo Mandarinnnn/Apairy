@@ -26,15 +26,37 @@
             android:layout_width="match_parent"
             android:layout_height="190dp"
             android:background="@drawable/round_bg"
-            android:layout_margin="20dp">
+            android:layout_margin="10dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="24dp"
-                android:text="Пчелиная колония"
-                android:textColor="@color/black"
-                android:textSize="30sp" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="28dp"
+                    android:text="Пчелиная колония"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.382" />
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/theory_bee"
+                    android:layout_marginEnd="8dp">
+
+                </ImageView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -42,15 +64,38 @@
             android:layout_width="match_parent"
             android:layout_height="190dp"
             android:background="@drawable/round_bg"
-            android:layout_margin="20dp">
+            android:layout_margin="10dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="24dp"
-                android:text="Содержание пчел"
-                android:textColor="@color/black"
-                android:textSize="30sp" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="Содержание пчел"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.382" />
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/theory_bee2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.488">
+
+                </ImageView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -58,15 +103,37 @@
             android:layout_width="match_parent"
             android:layout_height="190dp"
             android:background="@drawable/round_bg"
-            android:layout_margin="20dp">
+            android:layout_margin="10dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="24dp"
-                android:text="Уход за пчелами"
-                android:textColor="@color/black"
-                android:textSize="30sp" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="Уход за пчелами"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.382" />
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/theory_bee3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.488">
+
+                </ImageView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </RelativeLayout>
 
 

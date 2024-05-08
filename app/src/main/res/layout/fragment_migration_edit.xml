@@ -20,13 +20,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="Название"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:hint="Название">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_migration_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -37,12 +37,12 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="Количество ульев"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:hint="Количество ульев">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_migration_honey_plant"
             android:layout_width="match_parent"
+            android:background="@color/white"
             android:layout_height="wrap_content"
             android:inputType="number"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -61,13 +61,13 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:hint="Время начала"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            android:hint="Время начала">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_migration_start_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:inputType="text"
                 android:focusable="false"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -79,12 +79,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:hint="Время конца"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            android:hint="Время конца">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_migration_end_date"
                 android:layout_width="match_parent"
+                android:background="@color/white"
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:focusable="false"/>
@@ -105,12 +105,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:hint="Широта"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            android:hint="Широта">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/en_migration_latitude"
                 android:layout_width="match_parent"
+                android:background="@color/white"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -125,13 +125,13 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:hint="Долгота"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            android:hint="Долгота">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/en_migration_longitude"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -153,13 +153,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="Примечания"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:hint="Примечания">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_migration_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:inputType="textMultiLine"
             android:minHeight="100dp"
             android:gravity="top"/>

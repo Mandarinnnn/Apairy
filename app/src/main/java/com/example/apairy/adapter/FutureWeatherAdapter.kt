@@ -42,10 +42,10 @@ class FutureWeatherAdapter: RecyclerView.Adapter<FutureWeatherAdapter.FutureWeat
         val currentFutureWeather = FutureWeatherList[position]
 
         holder.date.text = currentFutureWeather.date
-        holder.morning.text = currentFutureWeather.morning.second.toString()
-        holder.day.text = currentFutureWeather.day.second.toString()
-        holder.evening.text = currentFutureWeather.evening.second.toString()
-        holder.night.text = currentFutureWeather.night.second.toString()
+        holder.morning.text = currentFutureWeather.morning.second.toString() +"°"
+        holder.day.text = currentFutureWeather.day.second.toString()+"°"
+        holder.evening.text = currentFutureWeather.evening.second.toString()+"°"
+        holder.night.text = currentFutureWeather.night.second.toString()+"°"
 
 
         Picasso.get().load("https:" + currentFutureWeather.morning.first).into(holder.ivMorning)

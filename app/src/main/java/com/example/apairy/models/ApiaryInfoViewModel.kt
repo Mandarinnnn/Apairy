@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ApiaryInfoViewModel @Inject constructor(val repository: HiveRepository): ViewModel() {
+class ApiaryInfoViewModel @Inject constructor(val repository: HiveeRepository): ViewModel() {
    // private val repository: HiveRepository
 
 //    init{
@@ -25,10 +25,9 @@ class ApiaryInfoViewModel @Inject constructor(val repository: HiveRepository): V
 //    }
 
     private val _totalStrengthCounts = MutableLiveData<StrengthCounts>()
-    val totalStrengthCounts: LiveData<StrengthCounts>
-        get() = _totalStrengthCounts
+    val totalStrengthCounts: LiveData<StrengthCounts> = _totalStrengthCounts
 
-
+    val getAllHives: LiveData<List<Hive>> = repository.getAllHives
 
     fun getTotalStrengthCounts() {
         viewModelScope.launch {
@@ -38,9 +37,8 @@ class ApiaryInfoViewModel @Inject constructor(val repository: HiveRepository): V
     }
 
 
-    private val _totalHoneyAmount = MutableLiveData<HoneyAmountCounts>()
-    val totalHoneyAmount: LiveData<HoneyAmountCounts>
-        get() = _totalHoneyAmount
+    private val _totalHoneyAmount = MutableLiveData<Float>()
+    val totalHoneyAmount: LiveData<Float> = _totalHoneyAmount
 
     fun getTotalHoneyAmount() {
         viewModelScope.launch {
@@ -49,5 +47,13 @@ class ApiaryInfoViewModel @Inject constructor(val repository: HiveRepository): V
         }
     }
 
+
+    private val _totalHiveCount = MutableLiveData<Int>()
+    val totalHiveCount: LiveData<Int> = _totalHiveCount
+
+
+    fun getTotalHiveCount(){
+
+    }
 
 }

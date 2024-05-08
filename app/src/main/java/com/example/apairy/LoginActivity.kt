@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.apairy.databinding.ActivityLoginBinding
 import com.example.apairy.databinding.ActivityRegisterBinding
+import com.example.apairy.models.HiveViewModel
 import com.example.apairy.models.MigrationViewModel
 import com.example.apairy.models.MistakeViewModel
 import com.example.apairy.models.UserViewModel
@@ -20,6 +21,7 @@ class LoginActivity : AppCompatActivity() {
     private val userViewModel: UserViewModel by viewModels()
     private val mistakeViewModel: MistakeViewModel by viewModels()
     private val migrationViewModel: MigrationViewModel by viewModels()
+    private val hiveViewModel: HiveViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,18 +32,17 @@ class LoginActivity : AppCompatActivity() {
             when(answer){
                 is Answer.Success -> {
 
+                    hiveViewModel.getAllRemoteHives()
+                    hiveViewModel.getAllRemoteStates()
                     mistakeViewModel.getAllRemoteMistakes()
                     migrationViewModel.getAllRemoteMigrations()
 
-                    Toast.makeText(this,"Login successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"Успешная авторизация", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 }
                 is Answer.Error -> {
                     Toast.makeText(this,answer.errorMessage, Toast.LENGTH_SHORT).show()
-                }
-                is Answer.Loading -> {
-
                 }
             }
         }

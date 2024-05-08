@@ -60,7 +60,7 @@ class MistakeAdapter: RecyclerView.Adapter<MistakeAdapter.MistakeViewHolder>(){
 
     }
 
-    fun filterMigrationList(search: String){
+    fun filterMistakeList(search: String){
         MistakeList.clear()
 
         for(item in fullList){

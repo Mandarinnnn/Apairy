@@ -44,7 +44,7 @@ class MigrationViewModel @Inject constructor(val repository: MigrationnRepositor
     }
 
 
-    fun syncMistakes(){
+    fun syncMigrations(){
         viewModelScope.launch(Dispatchers.IO){
             repository.syncMigrations()
         }
@@ -53,6 +53,12 @@ class MigrationViewModel @Inject constructor(val repository: MigrationnRepositor
     fun getAllRemoteMigrations(){
         viewModelScope.launch(Dispatchers.IO){
             repository.getAllRemoteMigrations()
+        }
+    }
+
+    fun deleteAll(){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.deleteAll()
         }
     }
 }

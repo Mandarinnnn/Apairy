@@ -140,7 +140,7 @@ class MigrationAddFragment : Fragment(), MenuProvider {
 
         val migration = Migration(
             title, hiveCount, startDate, endDate, latitude, longitude,  note, imageURI,
-            false, false, false)
+            true, false, false)
 
         migrationViewModel.insertMigration(migration)
         Toast.makeText(addMigrationView.context,"Кочевка добавлена", Toast.LENGTH_SHORT).show()
@@ -158,9 +158,8 @@ class MigrationAddFragment : Fragment(), MenuProvider {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(
-            requireContext(),
-            DatePickerDialog.OnDateSetListener { view: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
-                val selectedDate = "${dayOfMonth}.${month + 1}.${year}" // Пример формата даты
+            requireContext(), { view: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
+                val selectedDate = "${dayOfMonth}.${month + 1}.${year}"
                 editText.setText(selectedDate)
             }, year, month, day
         )
@@ -174,6 +173,10 @@ class MigrationAddFragment : Fragment(), MenuProvider {
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when(menuItem.itemId){
+            android.R.id.home ->{
+                locationViewModel.clearSelectedLocation()
+                true
+            }
             R.id.action_save_migr -> {
                 saveMigrationToDB(addMigrationView)
                 locationViewModel.clearSelectedLocation()

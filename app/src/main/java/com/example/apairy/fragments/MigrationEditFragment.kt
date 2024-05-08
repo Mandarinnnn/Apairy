@@ -173,12 +173,22 @@ class MigrationEditFragment : Fragment(),MenuProvider {
         val latitude = binding.enMigrationLatitude.text.toString().toDoubleOrNull()
         val longitude = binding.enMigrationLongitude.text.toString().toDoubleOrNull()
         val note = binding.etMigrationNote.text.toString().takeIf { it.isNotEmpty() }
-        val imageURI = binding.ivMigration.getTag().toString()
+
+
+        var imageURI: String?
+
+        try {
+            imageURI = binding.ivMigration.getTag().toString()
+        } catch (e: Exception){
+            imageURI = null
+        }
+
 
         if (title.isNotEmpty()){
             val migration = Migration(
                title, hiveCount, startDate, endDate, latitude, longitude,  note, imageURI,
-                false, true, false
+                currentMigration.isLocallyNew, true, currentMigration.isLocallyDeleted,
+                currentMigration.id
             )
             migrationViewModel.updateMigration(migration)
             Toast.makeText(editMigrationView.context,"Кочевка изменена", Toast.LENGTH_SHORT).show()
@@ -199,11 +209,13 @@ class MigrationEditFragment : Fragment(),MenuProvider {
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when(menuItem.itemId){
             android.R.id.home -> {
+                locationViewModel.clearSelectedLocation()
                 findNavController().popBackStack()
                 true
             }
             R.id.action_save_migrr -> {
                 updateMigrationInDB(editMigrationView)
+                locationViewModel.clearSelectedLocation()
                 true
             }
 

@@ -13,12 +13,22 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <TextView
+        android:id="@+id/tv_dont_have_coord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="50dp"
+        android:text="Выберите местоположение пасеки"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:visibility="gone" />
+
     <androidx.cardview.widget.CardView
+        android:id="@+id/cv_weather"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="8dp"
-        android:background="@color/orange"
-        app:cardBackgroundColor="@color/yellow">
+        >
 
         <ImageView
             android:layout_width="match_parent"
@@ -39,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="TextView"
+                android:text="Город"
                 android:textColor="@color/white"
                 android:textSize="28dp" />
 
@@ -63,7 +73,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="30dp"
                     android:gravity="left"
-                    android:text="25"
+                    android:text="0"
                     android:textColor="@color/white"
                     android:textSize="65dp"
                     android:layout_weight="1"/>
@@ -84,7 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="TextView"
+                    android:text="ветер"
                     android:textColor="@color/white"
                     android:textSize="28dp" />
 
@@ -94,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="TextView"
+                    android:text="влажность"
                     android:textColor="@color/white"
                     android:textSize="28dp" />
 
@@ -104,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="TextView"
+                    android:text="давл"
                     android:textColor="@color/white"
                     android:textSize="28dp" />
             </LinearLayout>
@@ -131,8 +141,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_future_weather"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="1200dp"
+        android:nestedScrollingEnabled="false"
         tools:listitem="@layout/future_weather_list_item"
-        tools:itemCount="3"/>
+        tools:itemCount="5"/>
 </LinearLayout>
 </ScrollView>

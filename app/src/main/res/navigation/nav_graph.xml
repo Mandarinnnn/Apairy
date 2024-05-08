@@ -88,6 +88,9 @@
         <action
             android:id="@+id/action_migrationListFragment_to_migrationEditFragment"
             app:destination="@id/migrationEditFragment" />
+        <action
+            android:id="@+id/action_migrationListFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
     </fragment>
     <fragment
         android:id="@+id/migrationAddFragment"
@@ -115,6 +118,9 @@
         <action
             android:id="@+id/action_mapsFragment_to_migrationAddFragment"
             app:destination="@id/migrationAddFragment" />
+        <argument
+            android:name="fragment"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/migrationEditFragment"
@@ -143,6 +149,9 @@
         <action
             android:id="@+id/action_mistakeListFragment_to_mistakeEditFragment"
             app:destination="@id/mistakeEditFragment" />
+        <action
+            android:id="@+id/action_mistakeListFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
     </fragment>
     <fragment
         android:id="@+id/mistakeAddFragment"
@@ -174,5 +183,21 @@
         android:id="@+id/weatherFragment"
         android:name="com.example.apairy.fragments.WeatherFragment"
         android:label="fragment_weather"
-        tools:layout="@layout/fragment_weather" />
+        tools:layout="@layout/fragment_weather" >
+        <action
+            android:id="@+id/action_weatherFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.apairy.fragments.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFragment_to_migrationListFragment"
+            app:destination="@id/migrationListFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_mistakeListFragment"
+            app:destination="@id/mistakeListFragment" />
+    </fragment>
 </navigation>

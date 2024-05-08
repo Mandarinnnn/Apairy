@@ -34,8 +34,8 @@ class MigrationnRepository @Inject constructor(val api: ApiaryApi, val migration
             if(response.success){
                 val _migration = Migration(migration.name, migration.hiveCount,
                     migration.startDate, migration.endDate, migration.latitude, migration.longitude,
-                    migration.note, migration.imageURI, false, false,
-                    false, migration.id,)
+                    migration.note, migration.imageURI, false, migration.isLocallyUpdated,
+                    migration.isLocallyUpdated, migration.id,)
                 migrationDao.updateMigration(_migration)
                 Answer.Success("Saved")
             } else {
@@ -134,5 +134,8 @@ class MigrationnRepository @Inject constructor(val api: ApiaryApi, val migration
 
     }
 
+    suspend fun deleteAll(){
+        migrationDao.deleteAllMigrations()
+    }
 
 }

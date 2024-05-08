@@ -257,10 +257,16 @@ class HiveeRepository@Inject constructor(val api: ApiaryApi, val hiveDao: HiveDa
 
 
     suspend fun getTotalStrengthCounts(): StrengthCounts {
-        return hiveDao.getTotalStrengthCounts()
+        return hiveDao.getTotalStrengthCounts2()
     }
 
-    suspend fun getTotalHoneyAmount(): HoneyAmountCounts {
-        return hiveDao.getTotalHoneyAmount()
+    suspend fun getTotalHoneyAmount(): Float {
+        return hiveDao.getTotalHoneyAmount2()
+    }
+
+
+    suspend fun deleteAll(){
+        hiveDao.deleteAllHives()
+        hiveDao.deleteAllHiveStates()
     }
 }

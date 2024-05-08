@@ -16,6 +16,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.example.apairy.MainActivity
 import com.example.apairy.R
 import com.example.apairy.databinding.FragmentMistakeAddBinding
 import com.example.apairy.models.MigrationViewModel
@@ -109,6 +110,16 @@ class MistakeAddFragment : Fragment(), MenuProvider {
             }
             else -> false
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as? MainActivity)?.hideBottomNavigationView()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        (activity as? MainActivity)?.showBottomNavigationView()
     }
 
 }

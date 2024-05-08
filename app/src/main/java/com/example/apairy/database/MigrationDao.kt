@@ -41,4 +41,8 @@ interface MigrationDao {
 
     @Query("SELECT MAX(id) FROM migration_table")
     fun getMaxId(): Int
+
+    @Query("DELETE FROM migration_table")
+    suspend fun deleteAllMigrations()
+
 }
