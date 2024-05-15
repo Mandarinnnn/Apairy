@@ -36,7 +36,7 @@ class HiveStateAdapter(val listener: HiveStateLongClickListener): RecyclerView.A
 
     override fun onBindViewHolder(holder: HiveStateViewHolder, position: Int) {
         val currentHiveState = HiveStateList[position]
-        holder.date.text = currentHiveState.date
+        holder.date.text = currentHiveState.date.substring(0, currentHiveState.date.length - 5)
         holder.strength.text = "сила:   " + currentHiveState.strength.toString()
         holder.honey.text = "мед:    " + currentHiveState.honey.toString()
         holder.frameWithBrood.text = "расп.:  " + currentHiveState.framesWithBrood.toString()

@@ -29,6 +29,7 @@
             android:id="@+id/et_hive_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLength="20"
             android:background="@color/white"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>

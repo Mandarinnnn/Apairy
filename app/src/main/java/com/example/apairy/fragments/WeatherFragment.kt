@@ -104,34 +104,23 @@ class WeatherFragment : Fragment(), MenuProvider {
 
         viewModel.currentWeather.observe(viewLifecycleOwner,){ currentWeather ->
             binding.tvName.text = "${currentWeather.name}"
-            binding.tvTemp.text = "${currentWeather.temperature} °C"
-            binding.tvWind.text = "${currentWeather.windSpeed} m/s"
+            binding.tvTemp.text = "${currentWeather.temperature} °"
+            binding.tvWind.text = "${currentWeather.windSpeed} км/ч"
             binding.tvHumidity.text = "${currentWeather.humidity} %"
-            binding.tvPressure.text = "${currentWeather.pressure} hPa"
+            val pressure = (currentWeather.pressure * 0.750063755419211).toInt()
+            binding.tvPressure.text = "$pressure мм рт. ст."
 
             Picasso.get().load("https:" + currentWeather.weather).into(binding.ivCurrentWeather)
         }
 
 
         fetchWeatherData()
-       // fetchWeatherData(55.3, 55.4)
-//        viewModel.weatherData.observe(viewLifecycleOwner, Observer { weatherData ->
-//            // Обновление UI с данными о погоде
-//            binding.tvName.text = "${weatherData.name} °C"
-//            binding.tvTemp.text = "${weatherData.temperature} °C"
-//            binding.tvWind.text = "${weatherData.windSpeed} m/s"
-//            binding.tvHumidity.text = "${weatherData.humidity} %"
-//            binding.tvPressure.text = "${weatherData.pressure} hPa"
-//        })
-
-       // viewModel.fetchWeatherData(55.139186, 54.649784)
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menu.clear()
         menuInflater.inflate(R.menu.weather_menu, menu)
 
-        (activity as? MainActivity)?.allocateTitle("Погода")
     }
 
 

@@ -38,8 +38,8 @@ class MigrationAdapter: RecyclerView.Adapter<MigrationAdapter.MigrationViewHolde
         val currentMigration = MigrationList[position]
         holder.title.text = currentMigration.name
         //holder.title.isSelected = true
-        holder.hiveCount.text = currentMigration.hiveCount.toString()
-        holder.date.text = currentMigration.startDate
+        holder.hiveCount.text = "Количество ульев: " + currentMigration.hiveCount.toString()
+        holder.date.text = "Дата: " + currentMigration.startDate
         //holder.date.isSelected = true
 
 

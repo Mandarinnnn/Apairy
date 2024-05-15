@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.menuFragment)
             .build()
         setupActionBarWithNavController(navController, appBarConfiguration)
-
+        
 
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
@@ -104,7 +104,6 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
     fun hideBottomNavigationView() {
         bottomNavigationView.visibility = View.GONE
     }
@@ -119,8 +118,8 @@ class MainActivity : AppCompatActivity() {
 
     fun allocateTitle(title: String){
 
-        getSupportActionBar()?.let {
-            getSupportActionBar()?.setTitle(title) }
+        supportActionBar?.let {
+            supportActionBar?.setTitle(title) }
 
 
     }

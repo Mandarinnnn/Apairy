@@ -37,7 +37,6 @@ class TheoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as? MainActivity)?.allocateTitle("Теория")
 
         binding.theoryTopic1.setOnClickListener{
             val category = 0
@@ -55,6 +54,8 @@ class TheoryFragment : Fragment() {
             it.findNavController().navigate(direction)
         }
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

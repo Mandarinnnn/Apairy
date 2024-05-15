@@ -121,8 +121,6 @@ class MistakeEditFragment : Fragment(),MenuProvider {
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menu.clear()
         menuInflater.inflate(R.menu.edit_menu, menu)
-
-        (activity as? MainActivity)?.allocateTitle("")
     }
 
     private fun deleteMistake(){

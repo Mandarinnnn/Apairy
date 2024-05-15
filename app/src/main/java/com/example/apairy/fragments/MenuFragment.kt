@@ -28,7 +28,7 @@ class MenuFragment : Fragment() {
     private var _binding: FragmentMenuBinding? = null
     private val binding get() = _binding!!
 
-
+    private lateinit var menuView: View
     private val hiveViewModel: HiveViewModel by activityViewModels()
     private val migrationViewModel: MigrationViewModel by activityViewModels()
     private val mistakeViewModel: MistakeViewModel by activityViewModels()
@@ -47,6 +47,8 @@ class MenuFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        menuView = view
 
         sessionManager = SessionManager(requireContext())
         binding.tvEmail.text = sessionManager.getEmail()
@@ -78,11 +80,11 @@ class MenuFragment : Fragment() {
                     mistakeViewModel.syncMistakes()
 
                     mistakeViewModel.clearSyncState()
-                    Toast.makeText(requireContext(),"Синхронизация прошла", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(menuView.context,"Синхронизация прошла", Toast.LENGTH_SHORT).show()
                 }
                 is Answer.Error -> {
                     mistakeViewModel.clearSyncState()
-                    Toast.makeText(requireContext(),"Не получилось синхронизировать", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(menuView.context,"Не получилось синхронизировать", Toast.LENGTH_SHORT).show()
                 }
 
                 else -> {}

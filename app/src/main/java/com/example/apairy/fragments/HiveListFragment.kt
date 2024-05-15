@@ -87,7 +87,6 @@ class HiveListFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListene
 
     override fun onDestroy() {
         super.onDestroy()
-        (activity as? MainActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -109,7 +108,6 @@ class HiveListFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListene
         val searchView = searchItem.actionView as SearchView
         searchView.setOnQueryTextListener(this)
 
-        (activity as? MainActivity)?.allocateTitle("Улья")
     }
 
     override fun onResume() {

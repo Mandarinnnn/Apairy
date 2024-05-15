@@ -13,6 +13,6 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_delete_migrr"
-        android:title="Delete"
+        android:title="Удалить"
         app:showAsAction="never" />
 </menu>

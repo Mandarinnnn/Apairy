@@ -32,7 +32,7 @@ class MistakeAdapter: RecyclerView.Adapter<MistakeAdapter.MistakeViewHolder>(){
     override fun onBindViewHolder(holder: MistakeViewHolder, position: Int) {
         val currentMistake = MistakeList[position]
         holder.title.text = currentMistake.name
-        holder.date.text = currentMistake.year
+        holder.date.text = "Год: " + currentMistake.year
 
 
         holder.mistake_layout.setOnClickListener{

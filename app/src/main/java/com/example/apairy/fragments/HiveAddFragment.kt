@@ -120,7 +120,6 @@ class HiveAddFragment : Fragment(), MenuProvider {
         menu.clear()
         menuInflater.inflate(R.menu.hive_add_menu, menu)
 
-        (activity as? MainActivity)?.allocateTitle("")
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {

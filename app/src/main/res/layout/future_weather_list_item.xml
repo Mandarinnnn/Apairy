@@ -4,8 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
-    android:layout_margin="8dp"
+    android:paddingBottom="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
     app:cardCornerRadius="8dp">
 
     <ImageView
@@ -35,9 +36,8 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="200dp"
+            android:layout_width="230dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Утром"
             android:layout_gravity="center"
             android:textColor="@color/white"
@@ -45,7 +45,7 @@
 
         <ImageView
             android:id="@+id/iv_morning"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_weight="1"
             android:src="@drawable/ic_sunny" />
@@ -67,9 +67,8 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="200dp"
+            android:layout_width="230dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Днем"
             android:layout_gravity="center"
             android:textColor="@color/white"
@@ -77,7 +76,7 @@
 
         <ImageView
             android:id="@+id/iv_day"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_weight="1"
             android:src="@drawable/ic_sunny" />
@@ -99,9 +98,8 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="200dp"
+            android:layout_width="230dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Вечером"
             android:layout_gravity="center"
             android:textColor="@color/white"
@@ -109,7 +107,7 @@
 
         <ImageView
             android:id="@+id/iv_evening"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_weight="1"
             android:src="@drawable/ic_sunny" />
@@ -131,9 +129,8 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="200dp"
+            android:layout_width="230dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="center"
             android:text="Ночью"
             android:textColor="@color/white"
@@ -141,7 +138,7 @@
 
         <ImageView
             android:id="@+id/iv_night"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_weight="1"
             android:src="@drawable/ic_sunny" />

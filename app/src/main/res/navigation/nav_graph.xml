@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/hiveAddFragment"
         android:name="com.example.apairy.fragments.HiveAddFragment"
-        android:label="fragment_hive_add"
+        android:label=""
         tools:layout="@layout/fragment_hive_add" >
         <action
             android:id="@+id/action_hiveAddFragment_to_hiveListFragment"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/hiveListFragment"
         android:name="com.example.apairy.fragments.HiveListFragment"
-        android:label="fragment_hive_list"
+        android:label="Улья"
         tools:layout="@layout/fragment_hive_list" >
         <action
             android:id="@+id/action_hiveListFragment_to_hiveAddFragment"
@@ -29,7 +29,7 @@
     <fragment
         android:id="@+id/hiveEditFragment"
         android:name="com.example.apairy.fragments.HiveEditFragment"
-        android:label="fragment_hive_edit"
+        android:label=""
         tools:layout="@layout/fragment_hive_edit" >
         <action
             android:id="@+id/action_hiveEditFragment_to_hiveListFragment"
@@ -42,7 +42,7 @@
     <fragment
         android:id="@+id/theoryFragment"
         android:name="com.example.apairy.fragments.TheoryFragment"
-        android:label="TheoryFragment" >
+        android:label="Теория" >
         <action
             android:id="@+id/action_theoryFragment_to_theoryListFragment"
             app:destination="@id/theoryListFragment" />
@@ -50,7 +50,7 @@
     <fragment
         android:id="@+id/theoryListFragment"
         android:name="com.example.apairy.fragments.TheoryListFragment"
-        android:label="fragment_theory_list"
+        android:label=""
         tools:layout="@layout/fragment_theory_list" >
         <action
             android:id="@+id/action_theoryListFragment_to_theoryFragment"
@@ -65,7 +65,7 @@
     <fragment
         android:id="@+id/theoryContentFragment"
         android:name="com.example.apairy.fragments.TheoryContentFragment"
-        android:label="fragment_theory_content"
+        android:label=""
         tools:layout="@layout/fragment_theory_content" >
         <action
             android:id="@+id/action_theoryContentFragment_to_theoryListFragment"
@@ -80,7 +80,7 @@
     <fragment
         android:id="@+id/migrationListFragment"
         android:name="com.example.apairy.fragments.MigrationListFragment"
-        android:label="fragment_migration_list"
+        android:label="Кочевки"
         tools:layout="@layout/fragment_migration_list" >
         <action
             android:id="@+id/action_migrationListFragment_to_migrationAddFragment"
@@ -95,7 +95,7 @@
     <fragment
         android:id="@+id/migrationAddFragment"
         android:name="com.example.apairy.fragments.MigrationAddFragment"
-        android:label="fragment_migration_add"
+        android:label=""
         tools:layout="@layout/fragment_migration_add" >
         <action
             android:id="@+id/action_migrationAddFragment_to_migrationListFragment"
@@ -113,7 +113,7 @@
     <fragment
         android:id="@+id/mapsFragment"
         android:name="com.example.apairy.fragments.MapsFragment"
-        android:label="fragment_maps"
+        android:label=""
         tools:layout="@layout/fragment_maps" >
         <action
             android:id="@+id/action_mapsFragment_to_migrationAddFragment"
@@ -125,7 +125,7 @@
     <fragment
         android:id="@+id/migrationEditFragment"
         android:name="com.example.apairy.fragments.MigrationEditFragment"
-        android:label="fragment_migration_edit"
+        android:label=""
         tools:layout="@layout/fragment_migration_edit" >
         <action
             android:id="@+id/action_migrationEditFragment_to_migrationListFragment"
@@ -141,7 +141,7 @@
     <fragment
         android:id="@+id/mistakeListFragment"
         android:name="com.example.apairy.fragments.MistakeListFragment"
-        android:label="fragment_mistake_list"
+        android:label="Проблемы сезона"
         tools:layout="@layout/fragment_mistake_list" >
         <action
             android:id="@+id/action_mistakeListFragment_to_mistakeAddFragment"
@@ -156,7 +156,7 @@
     <fragment
         android:id="@+id/mistakeAddFragment"
         android:name="com.example.apairy.fragments.MistakeAddFragment"
-        android:label="MistakeAddFragment" >
+        android:label="" >
         <action
             android:id="@+id/action_mistakeAddFragment_to_mistakeListFragment"
             app:destination="@id/mistakeListFragment" />
@@ -164,7 +164,7 @@
     <fragment
         android:id="@+id/mistakeEditFragment"
         android:name="com.example.apairy.fragments.MistakeEditFragment"
-        android:label="fragment_mistake_edit"
+        android:label=""
         tools:layout="@layout/fragment_mistake_edit" >
         <action
             android:id="@+id/action_mistakeEditFragment_to_mistakeListFragment"
@@ -177,12 +177,12 @@
     <fragment
         android:id="@+id/apiaryInfoFragment"
         android:name="com.example.apairy.fragments.ApiaryInfoFragment"
-        android:label="fragment_apiary_info"
+        android:label="Статистика"
         tools:layout="@layout/fragment_apiary_info" />
     <fragment
         android:id="@+id/weatherFragment"
         android:name="com.example.apairy.fragments.WeatherFragment"
-        android:label="fragment_weather"
+        android:label="Погода"
         tools:layout="@layout/fragment_weather" >
         <action
             android:id="@+id/action_weatherFragment_to_mapsFragment"
@@ -191,7 +191,7 @@
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.example.apairy.fragments.MenuFragment"
-        android:label="fragment_menu"
+        android:label=""
         tools:layout="@layout/fragment_menu" >
         <action
             android:id="@+id/action_menuFragment_to_migrationListFragment"

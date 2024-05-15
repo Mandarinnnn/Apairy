@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import com.example.apairy.databinding.ActivityMainBinding
 import com.example.apairy.databinding.ActivityRegisterBinding
 import com.example.apairy.models.MigrationViewModel
@@ -31,6 +32,7 @@ class RegisterActivity : AppCompatActivity() {
                 is Answer.Success -> {
 
                     Toast.makeText(this,"Register successfully", Toast.LENGTH_SHORT).show()
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 }
@@ -46,6 +48,12 @@ class RegisterActivity : AppCompatActivity() {
             val confirmPassword = binding.etConfirmPassword.text.toString().trim()
 
             userViewModel.register(email, password, confirmPassword)
+        }
+
+        binding.tvLogin.setOnClickListener{
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
     }
 }

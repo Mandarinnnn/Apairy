@@ -76,17 +76,6 @@ class MistakeListFragment : Fragment(), MenuProvider,SearchView.OnQueryTextListe
 
         }
 
-        binding.btnSync.setOnClickListener{
-            mistakeViewModel.syncMistakes()
-        }
-
-        binding.btnWifi.setOnClickListener{
-            if(isWifiEnabled(requireContext())){
-                Toast.makeText(requireContext(),"В одной локалке", Toast.LENGTH_SHORT).show()
-            } else{
-                Toast.makeText(requireContext(),"Не одной локалке", Toast.LENGTH_SHORT).show()
-            }
-        }
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

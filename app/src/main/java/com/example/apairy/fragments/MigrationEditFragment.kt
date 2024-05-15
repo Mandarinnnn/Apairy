@@ -153,7 +153,6 @@ class MigrationEditFragment : Fragment(),MenuProvider {
         menu.clear()
         menuInflater.inflate(R.menu.edit_migration_menu, menu)
 
-        (activity as? MainActivity)?.allocateTitle("")
     }
 
 

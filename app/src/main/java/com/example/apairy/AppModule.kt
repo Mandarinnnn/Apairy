@@ -43,7 +43,7 @@ object AppModule {
 
         val okHttpClient = OkHttpClient.Builder().addInterceptor(httpLoggindInterceptor).build()
 
-        return Retrofit.Builder().baseUrl("http://192.168.0.22:8080").client(okHttpClient)
+        return Retrofit.Builder().baseUrl("http://192.168.0.102:8080").client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create()).build().create(ApiaryApi::class.java)
     }
 

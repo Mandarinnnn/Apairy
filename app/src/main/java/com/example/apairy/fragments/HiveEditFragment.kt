@@ -141,7 +141,6 @@ class HiveEditFragment : Fragment(), MenuProvider,HiveStateAdapter.HiveStateLong
              editMenuItem = menu.findItem(R.id.action_save)
         saveMenuItem = menu.findItem(R.id.action_save)
 
-        (activity as? MainActivity)?.allocateTitle("")
 
         if(menuSaved){
             editMenuItem.isVisible = false
